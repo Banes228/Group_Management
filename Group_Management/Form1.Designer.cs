@@ -1,7 +1,7 @@
 ﻿
 namespace Group_Management
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,7 +29,7 @@ namespace Group_Management
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.sortButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
@@ -41,15 +41,15 @@ namespace Group_Management
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listBox1
+            // listBox
             // 
-            this.listBox1.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 23;
-            this.listBox1.Location = new System.Drawing.Point(15, 35);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(515, 441);
-            this.listBox1.TabIndex = 2;
+            this.listBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox.FormattingEnabled = true;
+            this.listBox.ItemHeight = 23;
+            this.listBox.Location = new System.Drawing.Point(15, 35);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(515, 441);
+            this.listBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -142,7 +142,7 @@ namespace Group_Management
             this.comboBox1.Size = new System.Drawing.Size(288, 31);
             this.comboBox1.TabIndex = 6;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -150,10 +150,11 @@ namespace Group_Management
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBox);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Ведение групп";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -161,7 +162,7 @@ namespace Group_Management
         }
 
         #endregion
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button addButton;
