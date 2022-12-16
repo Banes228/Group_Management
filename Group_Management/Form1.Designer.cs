@@ -38,6 +38,7 @@ namespace Group_Management
             this.changeParamButton = new System.Windows.Forms.Button();
             this.moveButton = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,11 +46,12 @@ namespace Group_Management
             // 
             this.listBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox.FormattingEnabled = true;
-            this.listBox.ItemHeight = 23;
-            this.listBox.Location = new System.Drawing.Point(15, 35);
+            this.listBox.ItemHeight = 29;
+            this.listBox.Location = new System.Drawing.Point(18, 72);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(515, 441);
+            this.listBox.Size = new System.Drawing.Size(515, 439);
             this.listBox.TabIndex = 2;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -57,7 +59,7 @@ namespace Group_Management
             this.label1.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 23);
+            this.label1.Size = new System.Drawing.Size(172, 31);
             this.label1.TabIndex = 3;
             this.label1.Text = "Список групп";
             // 
@@ -70,6 +72,7 @@ namespace Group_Management
             this.sortButton.TabIndex = 0;
             this.sortButton.Text = "Сортировать группы";
             this.sortButton.UseVisualStyleBackColor = true;
+            this.sortButton.Click += new System.EventHandler(this.sortButton_Click);
             // 
             // addButton
             // 
@@ -105,6 +108,7 @@ namespace Group_Management
             this.deleteButton.TabIndex = 2;
             this.deleteButton.Text = "Удалить группу";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // changeParamButton
             // 
@@ -139,14 +143,25 @@ namespace Group_Management
             "По кол-ву свободных мест"});
             this.comboBox1.Location = new System.Drawing.Point(585, 355);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(288, 31);
+            this.comboBox1.Size = new System.Drawing.Size(288, 37);
             this.comboBox1.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(12, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(479, 27);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Название/Направление/Возраст/Кло-во детей\r\n";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 501);
+            this.ClientSize = new System.Drawing.Size(887, 523);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label1);
@@ -171,6 +186,7 @@ namespace Group_Management
         private System.Windows.Forms.Button changeParamButton;
         private System.Windows.Forms.Button moveButton;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

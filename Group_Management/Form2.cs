@@ -17,11 +17,13 @@ namespace Group_Management
     {
         MainForm mainForm;
         private Button addButton;
-        public AddForm(MainForm mainForm, Button addButton)
+        private ListBox listBox;
+        public AddForm(MainForm mainForm, Button addButton, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.addButton = addButton;
+            this.listBox = listBox;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -43,8 +45,8 @@ namespace Group_Management
                 groupName = nameTextBox.Text;
                 groupCourse = courseTextBox.Text;
                 groupMinAge = Convert.ToInt32(minAgeTextBox.Text);
-                groupMaxAge = Convert.ToInt32(minAgeTextBox.Text);
-                groupMaxAmount = Convert.ToInt32(minAgeTextBox.Text);
+                groupMaxAge = Convert.ToInt32(maxAgeTextBox.Text);
+                groupMaxAmount = Convert.ToInt32(maxAmountTextBox.Text);
             }
             catch 
             {
@@ -80,11 +82,20 @@ namespace Group_Management
             {
                 streamWriter4.Write(groupMaxAmount + "\n");
 
-            }         
+            }
+
+            int count = 0;
+
+            listBox.Items.Add(groupName + "   |   " + groupCourse + "   |   " + groupMinAge + " - " + groupMaxAge + "   |   " + count + "/" + groupMaxAmount);
 
             mainForm.Enabled = true;
             addButton.Enabled = true; 
             this.Close();
+        }
+
+        private void courseTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
