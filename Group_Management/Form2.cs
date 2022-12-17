@@ -51,6 +51,7 @@ namespace Group_Management
             catch 
             {
                 MessageBox.Show("Данные в полях некоректны или отсутствуют!");
+                return;
             }
 
             Group group = new Group(groupName, groupCourse, groupMinAge, 

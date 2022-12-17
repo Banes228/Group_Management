@@ -14,22 +14,66 @@ namespace Group_Management
     public partial class MainForm : Form
     {
         public List<Group> groups = new List<Group>();
+        public List<Child> children = new List<Child>();
+        private bool isGroupsMode = true;
+        private String curentGroup;
+        int indexOfcurentGroup;
         public MainForm()
         {
             InitializeComponent();
         }
 
         private void addButton_Click(object sender, EventArgs e)
-        {
-            addButton.Enabled = false;
-            AddForm addForm = new AddForm(this, addButton, listBox);
-            addForm.Show();
+        {                  
+            if (isGroupsMode)
+            {
+                AddForm addForm = new AddForm(this, addButton, listBox);
+                addForm.Show();
+            }
+            else
+            {
+                using (StreamReader streamReader = new StreamReader("Names.txt"))
+                {
+                    int counter = 0;
+                    while (true)
+                    {
+                        curentGroup = streamReader.ReadLine();
+                        if (counter == indexOfcurentGroup) { break; }
+                        counter++;
+                    }
+                }
+                AddChildForm addChildForm = new AddChildForm(this, listBox, curentGroup);
+                addChildForm.Show();
+            }            
             this.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Init();
+        }
+
+        private void Init()
+        {
+            listBox.Items.Clear();
+
+            deleteButton.Enabled = false;
+            changeParamButton.Enabled = false;
+            openClouseButton.Enabled = false;
+            moveButton.Enabled = false;            
+
+            label1.Text = "Список групп";
+            label2.Text = "Название/Направление/Возраст/Кол-во детей";
+
+            openClouseButton.Text = "Просмотреть";
+
+            comboBox1.Items.Clear();
+            comboBox1.Items.Add("По имени");
+            comboBox1.Items.Add("По направлению");
+            comboBox1.Items.Add("По возрасту");
+
             comboBox1.SelectedIndex = 0;
+
             try
             {
                 FileStream fileStream = null;
@@ -94,13 +138,30 @@ namespace Group_Management
                 string curse = streamWriter1.ReadLine();
                 int min = Convert.ToInt32(streamWriter2.ReadLine());
                 int max = Convert.ToInt32(streamWriter3.ReadLine());
-                int count = 0; //TODO Сделать счётчик детей
+                int count = 0; 
                 int maxA = Convert.ToInt32(streamWriter4.ReadLine());
 
+                FileStream fileStream5 = null;
+                FileInfo fileInfo5 = new FileInfo(name + "\\Names.txt");
+                if (!fileInfo5.Exists)
+                {
+                    fileStream5 = fileInfo5.Create();
+                    fileStream5.Close();
+                }
+
+                using (StreamReader streamReader = new StreamReader(name + "\\Names.txt"))
+                {
+                    while(streamReader.ReadLine() != null)
+                    {
+                        count++;
+                    }
+                }
+
                 Group group = new Group(name, curse, min, max, maxA);
+                group.amounOfChildren = count;
                 groups.Add(group);
 
-                listBox.Items.Add(name + "   |   " + curse + "   |   " + min + " - " 
+                listBox.Items.Add(name + "   |   " + curse + "   |   " + min + " - "
                     + max + "   |   " + count + "/" + maxA);
             }
 
@@ -114,7 +175,7 @@ namespace Group_Management
         private void deleteButton_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            DeleteForm deleteForm = new DeleteForm(this, listBox);
+            DeleteForm deleteForm = new DeleteForm(this, listBox, isGroupsMode);
             deleteForm.Show();
         }
 
@@ -122,6 +183,7 @@ namespace Group_Management
         {
             deleteButton.Enabled = true;
             changeParamButton.Enabled = true;
+            openClouseButton.Enabled = true;
         }
 
         private void sortButton_Click(object sender, EventArgs e)
@@ -153,11 +215,11 @@ namespace Group_Management
                                     + group.minAge.ToString() + " - " + group.maxAge.ToString() 
                                     + "   |   " + group.amounOfChildren.ToString() 
                                     + "/" + group.maxAmounOfChildren.ToString());
-                                using (StreamWriter streamWriter = new StreamWriter("Names.txt")) { streamWriter.Write(group.name, isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Course.txt")) { streamWriter.Write(group.course, isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Min.txt")) { streamWriter.Write(group.minAge.ToString(), isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Max.txt")) { streamWriter.Write(group.maxAge.ToString(), isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("MaxA.txt")) { streamWriter.Write(group.maxAmounOfChildren.ToString(), isNoFirst); }
+                                using (StreamWriter streamWriter = new StreamWriter("Names.txt", isNoFirst)) { streamWriter.WriteLine(group.name); }
+                                using (StreamWriter streamWriter = new StreamWriter("Course.txt", isNoFirst)) { streamWriter.WriteLine(group.course); }
+                                using (StreamWriter streamWriter = new StreamWriter("Min.txt", isNoFirst)) { streamWriter.WriteLine(group.minAge); }
+                                using (StreamWriter streamWriter = new StreamWriter("Max.txt", isNoFirst)) { streamWriter.WriteLine(group.maxAge); }
+                                using (StreamWriter streamWriter = new StreamWriter("MaxA.txt", isNoFirst)) { streamWriter.WriteLine(group.maxAmounOfChildren); }
                                 isNoFirst = true;
                             }
 	                    }
@@ -190,11 +252,11 @@ namespace Group_Management
                                     + group.minAge.ToString() + " - " + group.maxAge.ToString() 
                                     + "   |   " + group.amounOfChildren.ToString() 
                                     + "/" + group.maxAmounOfChildren.ToString());
-                                using (StreamWriter streamWriter = new StreamWriter("Names.txt")) { streamWriter.Write(group.name, isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Course.txt")) { streamWriter.Write(group.course, isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Min.txt")) { streamWriter.Write(group.minAge.ToString(), isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("Max.txt")) { streamWriter.Write(group.maxAge.ToString(), isNoFirst); }
-                                using (StreamWriter streamWriter = new StreamWriter("MaxA.txt")) { streamWriter.Write(group.maxAmounOfChildren.ToString(), isNoFirst); }
+                                using (StreamWriter streamWriter = new StreamWriter("Names.txt", isNoFirst)) { streamWriter.WriteLine(group.name); }
+                                using (StreamWriter streamWriter = new StreamWriter("Course.txt", isNoFirst)) { streamWriter.WriteLine(group.course); }
+                                using (StreamWriter streamWriter = new StreamWriter("Min.txt", isNoFirst)) { streamWriter.WriteLine(group.minAge); }
+                                using (StreamWriter streamWriter = new StreamWriter("Max.txt", isNoFirst)) { streamWriter.WriteLine(group.maxAge); }
+                                using (StreamWriter streamWriter = new StreamWriter("MaxA.txt", isNoFirst)) { streamWriter.WriteLine(group.maxAmounOfChildren); }
                                 isNoFirst = true;
                             }
 	                    }
@@ -234,13 +296,10 @@ namespace Group_Management
                                 curentMinGroup.Add(group);
                                 maxes.Add(group.maxAge);
 
-	                        }
-
-                            
-
+	                        }                          
 	                    }
                         
-                        maxes.Sort();
+                        maxes.Sort();                        
                         int curentMax = -1;
                             
                         foreach (int max in maxes)
@@ -257,11 +316,11 @@ namespace Group_Management
                                     + specialGroup.minAge.ToString() + " - " + specialGroup.maxAge.ToString() 
                                     + "   |   " + specialGroup.amounOfChildren.ToString() 
                                     + "/" + specialGroup.maxAmounOfChildren.ToString());
-                                    using (StreamWriter streamWriter = new StreamWriter("Names.txt")) { streamWriter.Write(specialGroup.name, isNoFirst); }
-                                    using (StreamWriter streamWriter = new StreamWriter("Course.txt")) { streamWriter.Write(specialGroup.course, isNoFirst); }
-                                    using (StreamWriter streamWriter = new StreamWriter("Min.txt")) { streamWriter.Write(specialGroup.minAge.ToString(), isNoFirst); }
-                                    using (StreamWriter streamWriter = new StreamWriter("Max.txt")) { streamWriter.Write(specialGroup.ToString(), isNoFirst); }
-                                    using (StreamWriter streamWriter = new StreamWriter("MaxA.txt")) { streamWriter.Write(specialGroup.ToString(), isNoFirst); }
+                                    using (StreamWriter streamWriter = new StreamWriter("Names.txt", isNoFirst)) { streamWriter.WriteLine(specialGroup.name); }
+                                    using (StreamWriter streamWriter = new StreamWriter("Course.txt", isNoFirst)) { streamWriter.WriteLine(specialGroup.course); }
+                                    using (StreamWriter streamWriter = new StreamWriter("Min.txt", isNoFirst)) { streamWriter.WriteLine(specialGroup.minAge); }
+                                    using (StreamWriter streamWriter = new StreamWriter("Max.txt", isNoFirst)) { streamWriter.WriteLine(specialGroup.maxAge); }
+                                    using (StreamWriter streamWriter = new StreamWriter("MaxA.txt", isNoFirst)) { streamWriter.WriteLine(specialGroup.maxAmounOfChildren); }                                                              
                                     isNoFirst = true;
                                 }
                             }
@@ -269,81 +328,110 @@ namespace Group_Management
 	                    }    
                         curentMin = Convert.ToInt32(min);
 	                }
-                    break;       
-                    
-                case 3:
-
-                    break;
+                    break;                                        
             }
         }
 
         private void openClouseButton_Click(object sender, EventArgs e)
         {
-            comboBox1.SelectedIndex = 0;
-
-            try
+            isGroupsMode = !isGroupsMode;
+            if (isGroupsMode)
             {
-                FileStream fileStream = null;
-                FileStream fileStream1 = null;
-                FileStream fileStream2 = null;
-
-                FileInfo fileInfo = new FileInfo("Names.txt");
-                if (!fileInfo.Exists)
-                {
-                    fileStream = fileInfo.Create();
-                    fileStream.Close();
-                }
-
-                FileInfo fileInfo1 = new FileInfo("Course.txt");
-                if (!fileInfo1.Exists)
-                {
-                    fileStream1 = fileInfo1.Create();
-                    fileStream1.Close();
-                }
-
-                FileInfo fileInfo2 = new FileInfo("Min.txt");
-                if (!fileInfo2.Exists)
-                {
-                    fileStream2 = fileInfo2.Create();
-                    fileStream2.Close();
-                }
+                Init();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-            }
+                deleteButton.Enabled = false;
+                changeParamButton.Enabled = false;
+                openClouseButton.Enabled = true;
+                moveButton.Enabled = false;                
 
-            StreamReader streamWriter = new StreamReader("Names.txt", true);
-            StreamReader streamWriter1 = new StreamReader("Course.txt", true);
-            StreamReader streamWriter2 = new StreamReader("Min.txt", true);
-            StreamReader streamWriter3 = new StreamReader("Max.txt", true);
-            StreamReader streamWriter4 = new StreamReader("MaxA.txt", true);
+                label1.Text = "Список детей в группе";
+                label2.Text = "Имя/Возраст/Кол-во детей";
+                openClouseButton.Text = "Назад";                
 
-            while (true)
-            {
-                string name = streamWriter.ReadLine();
-                if (name == null)
+                int counter = 0;
+
+                using (StreamReader streamReader = new StreamReader("Names.txt"))
                 {
-                    break;
+                    while (true)
+                    {
+                        curentGroup = streamReader.ReadLine();
+                        if (counter == listBox.SelectedIndex)
+                        {
+                            break;
+                        }
+                        counter++;
+                    }
                 }
-                string curse = streamWriter1.ReadLine();
-                int min = Convert.ToInt32(streamWriter2.ReadLine());
-                int max = Convert.ToInt32(streamWriter3.ReadLine());
-                int count = 0; //TODO Сделать счётчик детей
-                int maxA = Convert.ToInt32(streamWriter4.ReadLine());
+                indexOfcurentGroup = listBox.SelectedIndex;
+                listBox.Items.Clear();
+                comboBox1.Items.Clear();
+                comboBox1.Items.Add("По имени");
+                comboBox1.Items.Add("По возрасту");
+                comboBox1.Items.Add("По дате рождения");
+                comboBox1.SelectedIndex = 0;
 
-                Group group = new Group(name, curse, min, max, maxA);
-                groups.Add(group);
+                try
+                {
+                    FileStream fileStream = null;
+                    FileStream fileStream1 = null;
+                    FileStream fileStream2 = null;
 
-                listBox.Items.Add(name + "   |   " + curse + "   |   " + min + " - "
-                    + max + "   |   " + count + "/" + maxA);
-            }
+                    FileInfo fileInfo = new FileInfo(curentGroup + "\\Names.txt");
+                    if (!fileInfo.Exists)
+                    {
+                        fileStream = fileInfo.Create();
+                        fileStream.Close();
+                    }
 
-            streamWriter.Close();
-            streamWriter1.Close();
-            streamWriter2.Close();
-            streamWriter3.Close();
-            streamWriter4.Close();
+                    FileInfo fileInfo1 = new FileInfo(curentGroup + "\\Age.txt");
+                    if (!fileInfo1.Exists)
+                    {
+                        fileStream1 = fileInfo1.Create();
+                        fileStream1.Close();
+                    }
+
+                    FileInfo fileInfo2 = new FileInfo(curentGroup + "\\BDD.txt");
+                    if (!fileInfo2.Exists)
+                    {
+                        fileStream2 = fileInfo2.Create();
+                        fileStream2.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                StreamReader streamWriter = new StreamReader(curentGroup + "\\Names.txt", true);
+                StreamReader streamWriter1 = new StreamReader(curentGroup + "\\Age.txt", true);
+                StreamReader streamWriter2 = new StreamReader(curentGroup + "\\BDD.txt", true);
+
+                while (true)
+                {
+                    string name = streamWriter.ReadLine();
+                    if (name == null)
+                    {
+                        break;
+                    }
+                    int age = Convert.ToInt32(streamWriter1.ReadLine());
+                    String bdd = streamWriter2.ReadLine();
+
+                    Child child = new Child(name, age, bdd);
+
+                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
+                }
+
+                streamWriter.Close();
+                streamWriter1.Close();
+                streamWriter2.Close();
+            }        
+        }
+
+        public String getCurrentGroup()
+        {
+            return curentGroup;
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Group_Management
         public String course;
         public int minAge;
         public int maxAge;
-        public int maxAmounOfChildren;
-        public int amounOfChildren;
+        public int maxAmounOfChildren;               
         
 
         public Group(String name, String course, int minAge, int maxAge, int maxAmounOfChildren)
