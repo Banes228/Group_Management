@@ -32,9 +32,9 @@ namespace Group_Management
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            String childName = "";         
-            int childAge = 0;
-            String bdd = "";
+            String childName;         
+            int childAge;
+            String bdd;
             try
             {
                 childName = nameTextBox.Text;

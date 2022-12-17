@@ -13,7 +13,7 @@ namespace Group_Management
         public int minAge;
         public int maxAge;
         public int maxAmounOfChildren;               
-        
+        public int amounOfChildren;
 
         public Group(String name, String course, int minAge, int maxAge, int maxAmounOfChildren)
         {
@@ -21,8 +21,7 @@ namespace Group_Management
             this.course = course;
             this.minAge = minAge;
             this.maxAge = maxAge;
-            this.maxAmounOfChildren = maxAmounOfChildren;
-            
+            this.maxAmounOfChildren = maxAmounOfChildren;            
         }
     }
 }

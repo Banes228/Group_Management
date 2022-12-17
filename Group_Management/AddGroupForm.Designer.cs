@@ -1,7 +1,7 @@
 ﻿
 namespace Group_Management
 {
-    partial class AddForm
+    partial class AddGroupForm
     {
         /// <summary>
         /// Required designer variable.
@@ -60,7 +60,6 @@ namespace Group_Management
             this.courseTextBox.Name = "courseTextBox";
             this.courseTextBox.Size = new System.Drawing.Size(265, 38);
             this.courseTextBox.TabIndex = 1;
-            this.courseTextBox.TextChanged += new System.EventHandler(this.courseTextBox_TextChanged);
             // 
             // minAgeTextBox
             // 

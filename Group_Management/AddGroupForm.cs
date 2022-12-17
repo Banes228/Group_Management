@@ -13,12 +13,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Group_Management
 {
-    public partial class AddForm : Form
+    public partial class AddGroupForm : Form
     {
         MainForm mainForm;
         private Button addButton;
         private ListBox listBox;
-        public AddForm(MainForm mainForm, Button addButton, ListBox listBox)
+        public AddGroupForm(MainForm mainForm, Button addButton, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
@@ -35,11 +35,11 @@ namespace Group_Management
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            String groupName = "";
-            String groupCourse = "";
-            int groupMinAge = 0 ;
-            int groupMaxAge = 0;
-            int groupMaxAmount = 0;           
+            String groupName;
+            String groupCourse;
+            int groupMinAge;
+            int groupMaxAge;
+            int groupMaxAmount;           
             try
             {
                 groupName = nameTextBox.Text;
@@ -66,37 +66,31 @@ namespace Group_Management
             {
                 streamWriter.Write(groupName + "\n");
             }
-            using (StreamWriter streamWriter1 = new StreamWriter("Course.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Course.txt", true))
             {
-                streamWriter1.Write(groupCourse + "\n");
+                streamWriter.Write(groupCourse + "\n");
             }
-            using (StreamWriter streamWriter2 = new StreamWriter("Min.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Min.txt", true))
             {
-                streamWriter2.Write(groupMinAge + "\n");
+                streamWriter.Write(groupMinAge + "\n");
             }
-            using (StreamWriter streamWriter3 = new StreamWriter("Max.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Max.txt", true))
             {
-                streamWriter3.Write(groupMaxAge + "\n");
+                streamWriter.Write(groupMaxAge + "\n");
 
             }
-            using (StreamWriter streamWriter4 = new StreamWriter("MaxA.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("MaxA.txt", true))
             {
-                streamWriter4.Write(groupMaxAmount + "\n");
+                streamWriter.Write(groupMaxAmount + "\n");
 
             }
 
             int count = 0;
 
             listBox.Items.Add(groupName + "   |   " + groupCourse + "   |   " + groupMinAge + " - " + groupMaxAge + "   |   " + count + "/" + groupMaxAmount);
-
             mainForm.Enabled = true;
             addButton.Enabled = true; 
             this.Close();
-        }
-
-        private void courseTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }     
     }
 }
