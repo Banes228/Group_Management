@@ -21,7 +21,7 @@ namespace Group_Management
             this.name = name;
             this.course = course;
             this.minAge = minAge;
-            this.maxAge = minAge;
+            this.maxAge = maxAge;
             this.maxAmounOfChildren = maxAmounOfChildren;
             
         }

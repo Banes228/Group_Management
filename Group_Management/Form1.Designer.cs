@@ -39,6 +39,7 @@ namespace Group_Management
             this.moveButton = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.openClouseButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@ namespace Group_Management
             // sortButton
             // 
             this.sortButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sortButton.Location = new System.Drawing.Point(3, 207);
+            this.sortButton.Location = new System.Drawing.Point(3, 258);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(280, 45);
             this.sortButton.TabIndex = 0;
@@ -90,12 +91,13 @@ namespace Group_Management
             this.flowLayoutPanel1.Controls.Add(this.addButton);
             this.flowLayoutPanel1.Controls.Add(this.deleteButton);
             this.flowLayoutPanel1.Controls.Add(this.changeParamButton);
+            this.flowLayoutPanel1.Controls.Add(this.openClouseButton);
             this.flowLayoutPanel1.Controls.Add(this.moveButton);
             this.flowLayoutPanel1.Controls.Add(this.sortButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(585, 35);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(288, 255);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(288, 314);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // deleteButton
@@ -125,7 +127,7 @@ namespace Group_Management
             // 
             this.moveButton.Enabled = false;
             this.moveButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.moveButton.Location = new System.Drawing.Point(3, 156);
+            this.moveButton.Location = new System.Drawing.Point(3, 207);
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(280, 45);
             this.moveButton.TabIndex = 4;
@@ -155,6 +157,17 @@ namespace Group_Management
             this.label2.Size = new System.Drawing.Size(479, 27);
             this.label2.TabIndex = 7;
             this.label2.Text = "Название/Направление/Возраст/Кло-во детей\r\n";
+            // 
+            // openClouseButton
+            // 
+            this.openClouseButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.openClouseButton.Location = new System.Drawing.Point(3, 156);
+            this.openClouseButton.Name = "openClouseButton";
+            this.openClouseButton.Size = new System.Drawing.Size(280, 45);
+            this.openClouseButton.TabIndex = 5;
+            this.openClouseButton.Text = "Просмотреть группу";
+            this.openClouseButton.UseVisualStyleBackColor = true;
+            this.openClouseButton.Click += new System.EventHandler(this.openClouseButton_Click);
             // 
             // MainForm
             // 
@@ -187,6 +200,7 @@ namespace Group_Management
         private System.Windows.Forms.Button moveButton;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button openClouseButton;
     }
 }
 
