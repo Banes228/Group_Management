@@ -33,9 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.bddTextBox = new System.Windows.Forms.TextBox();
             this.ageTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -47,6 +47,7 @@
             this.cancelButton.TabIndex = 19;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // confirmButton
             // 
@@ -89,14 +90,6 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Имя";
             // 
-            // bddTextBox
-            // 
-            this.bddTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.bddTextBox.Location = new System.Drawing.Point(300, 34);
-            this.bddTextBox.Name = "bddTextBox";
-            this.bddTextBox.Size = new System.Drawing.Size(141, 32);
-            this.bddTextBox.TabIndex = 14;
-            // 
             // ageTextBox
             // 
             this.ageTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -113,17 +106,24 @@
             this.nameTextBox.Size = new System.Drawing.Size(200, 32);
             this.nameTextBox.TabIndex = 12;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(300, 34);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(141, 20);
+            this.dateTimePicker1.TabIndex = 20;
+            // 
             // AddChildForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 121);
+            this.ClientSize = new System.Drawing.Size(450, 121);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.bddTextBox);
             this.Controls.Add(this.ageTextBox);
             this.Controls.Add(this.nameTextBox);
             this.Name = "AddChildForm";
@@ -140,8 +140,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox bddTextBox;
         private System.Windows.Forms.TextBox ageTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

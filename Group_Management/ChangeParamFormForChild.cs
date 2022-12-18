@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Group_Management
 {
@@ -15,13 +17,11 @@ namespace Group_Management
     {
         private MainForm mainForm;
         private ListBox listBox;
-        private String currentGroup;
-        public ChangeParamFormForChild(MainForm mainForm, ListBox listBox, string currentGroup)
+        public ChangeParamFormForChild(MainForm mainForm, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.listBox = listBox;
-            this.currentGroup = currentGroup;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace Group_Management
             int counter = 0;
             int index = listBox.SelectedIndex;
 
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Names.txt"))
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -63,8 +63,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Age.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -88,8 +90,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\BDD.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -98,9 +102,57 @@ namespace Group_Management
                     line = streamReader.ReadLine();
                     counter++;
                 }
-            }           
+            }
 
-            using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\Names.txt"))
+            if(Convert.ToInt32(ageList[index]) < 0)
+            {
+                MessageBox.Show("Возраст должен быть больше нуля!");
+                return;
+            }
+
+            int minAge;
+            int maxAge;
+            counter = 0;
+
+            using (StreamReader sr = new StreamReader("Data\\Names.txt"))
+            {
+                string line = sr.ReadLine();
+                while (line != mainForm.getCurrentGroup())
+                {
+                    line = sr.ReadLine();
+                    counter++;
+                }
+            }
+
+            using (StreamReader sr = new StreamReader("Data\\Min.txt"))
+            {
+                int localCounter = 0;
+                string line = sr.ReadLine();
+                while (localCounter != counter)
+                {
+                    line = sr.ReadLine();
+                }
+                minAge = Convert.ToInt32(line);
+            }
+
+            using (StreamReader sr = new StreamReader("Data\\Max.txt"))
+            {
+                int localCounter = 0;
+                string line = sr.ReadLine();
+                while (localCounter != counter)
+                {
+                    line = sr.ReadLine();
+                }
+                maxAge = Convert.ToInt32(line);
+            }
+
+            if (Convert.ToInt32(ageList[index]) < minAge || Convert.ToInt32(ageList[index]) > maxAge)
+            {
+                MessageBox.Show("Возраст не соответствует группе!");
+                return;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
             {
                 foreach (string item in nameList)
                 {
@@ -108,7 +160,7 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\Age.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
             {
                 foreach (string item in ageList)
                 {
@@ -116,13 +168,13 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\BDD.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
             {
                 foreach (string item in bddList)
                 {
                     streamWriter.WriteLine(item);
                 }
-            }            
+            }           
 
             mainForm.Enabled = true;
             listBox.Items[index] = nameList[index]

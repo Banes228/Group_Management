@@ -16,20 +16,17 @@ namespace Group_Management
     public partial class AddGroupForm : Form
     {
         MainForm mainForm;
-        private Button addButton;
         private ListBox listBox;
-        public AddGroupForm(MainForm mainForm, Button addButton, ListBox listBox)
+        public AddGroupForm(MainForm mainForm, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.addButton = addButton;
             this.listBox = listBox;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
             mainForm.Enabled = true;
-            addButton.Enabled = true;
             this.Close();
         }
 
@@ -43,43 +40,89 @@ namespace Group_Management
             try
             {
                 groupName = nameTextBox.Text;
+                using(StreamReader streamReader = new StreamReader("Data\\Names.txt")) 
+                {
+                    string line = streamReader.ReadLine();
+                    while(line != null)
+                    {
+                        if (line == groupName)
+                        {
+                            MessageBox.Show("Название группы должно быть уникальным!");
+                            return;
+                        }
+                        line = streamReader.ReadLine();
+                    }
+                }
                 groupCourse = courseTextBox.Text;
                 groupMinAge = Convert.ToInt32(minAgeTextBox.Text);
                 groupMaxAge = Convert.ToInt32(maxAgeTextBox.Text);
+                if(groupMaxAge < 0 || groupMinAge < 0) 
+                {
+                    MessageBox.Show("Максимальный и минимальнй возраст должны быть больше нуля!");
+                    return;
+                }
+                if (groupMinAge > groupMaxAge)
+                {
+                    MessageBox.Show("Минимальнй возраст должен быть меньше максимального!");
+                    return;
+                }
                 groupMaxAmount = Convert.ToInt32(maxAmountTextBox.Text);
+                if (groupMaxAmount < 0)
+                {
+                    MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");
+                    return;
+                }
             }
             catch 
             {
                 MessageBox.Show("Данные в полях некоректны или отсутствуют!");
                 return;
+            }     
+        
+            Directory.CreateDirectory("Data\\" + groupName + "\\");
+
+            try
+            {
+                FileStream fileStreamOfNames = null;
+                FileStream fileStreamOfAge = null;
+                FileStream fileStreamOfBDD = null;
+
+                FileInfo fileInfoOfNames = new FileInfo("Data\\" + groupName + "\\Names.txt");
+                FileInfo fileInfoOfAge = new FileInfo("Data\\" + groupName + "\\Age.txt");
+                FileInfo fileInfoOfBDD = new FileInfo("Data\\" + groupName + "\\BDD.txt");
+
+                fileStreamOfNames = fileInfoOfNames.Create();
+                fileStreamOfAge = fileInfoOfAge.Create();
+                fileStreamOfBDD = fileInfoOfBDD.Create();
+
+                fileStreamOfNames.Close();
+                fileStreamOfAge.Close();
+                fileStreamOfBDD.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            Group group = new Group(groupName, groupCourse, groupMinAge, 
-                groupMaxAge, groupMaxAmount);
-            mainForm.groups.Add(group);
-
-            String path = groupName + "\\";      
-        
-            Directory.CreateDirectory(path);            
-
-            using (StreamWriter streamWriter = new StreamWriter("Names.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Names.txt", true))
             {
                 streamWriter.Write(groupName + "\n");
             }
-            using (StreamWriter streamWriter = new StreamWriter("Course.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Course.txt", true))
             {
                 streamWriter.Write(groupCourse + "\n");
             }
-            using (StreamWriter streamWriter = new StreamWriter("Min.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Min.txt", true))
             {
                 streamWriter.Write(groupMinAge + "\n");
             }
-            using (StreamWriter streamWriter = new StreamWriter("Max.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Max.txt", true))
             {
                 streamWriter.Write(groupMaxAge + "\n");
 
             }
-            using (StreamWriter streamWriter = new StreamWriter("MaxA.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\MaxA.txt", true))
             {
                 streamWriter.Write(groupMaxAmount + "\n");
 
@@ -87,9 +130,11 @@ namespace Group_Management
 
             int count = 0;
 
-            listBox.Items.Add(groupName + "   |   " + groupCourse + "   |   " + groupMinAge + " - " + groupMaxAge + "   |   " + count + "/" + groupMaxAmount);
+            listBox.Items.Add(groupName 
+                + "   |   " + groupCourse 
+                + "   |   " + groupMinAge + " - " + groupMaxAge 
+                + "   |   " + count + "/" + groupMaxAmount);
             mainForm.Enabled = true;
-            addButton.Enabled = true; 
             this.Close();
         }     
     }

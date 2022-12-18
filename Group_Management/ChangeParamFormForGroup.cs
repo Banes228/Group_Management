@@ -32,6 +32,8 @@ namespace Group_Management
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
+
+
             List<string> nameList = new List<string>();
             List<string> courseList = new List<string>();
             List<string> minList = new List<string>();
@@ -40,19 +42,17 @@ namespace Group_Management
             int counter = 0;
             int index = listBox.SelectedIndex;
 
-
-            using (StreamReader streamReader = new StreamReader("Names.txt"))
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
                 {
                     nameList.Add(line);                
-                    line = streamReader.ReadLine();
-                    counter++;
+                    line = streamReader.ReadLine();                   
                 }
             }
-            counter = 0;
-            using (StreamReader streamReader = new StreamReader("Course.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\Course.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -76,8 +76,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader("Min.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\Min.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -101,8 +103,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader("Max.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\Max.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -126,8 +130,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader("MaxA.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\MaxA.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -151,9 +157,31 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
 
-            using (StreamWriter streamWriter = new StreamWriter("Names.txt"))
+            if (Convert.ToInt32(maxList[index]) < 0 || Convert.ToInt32(minList[index]) < 0)
+            {
+                MessageBox.Show("Максимальный и минимальнй возраст должны быть больше нуля!");
+                return;
+            }
+            if (Convert.ToInt32(minList[index]) > Convert.ToInt32(maxList[index]))
+            {
+                MessageBox.Show("Минимальнй возраст должен быть меньше максимального!");
+                return;
+            }
+            if (Convert.ToInt32(maxAList[index]) < 0)
+            {
+                MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");
+                return;
+            }
+            if (Convert.ToInt32(maxAList[index]) < counter)
+            {
+                MessageBox.Show("Максимальное число детей быть больше, чем уже в группе!");
+                return;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Names.txt"))
             {
                 foreach (string item in nameList)
                 {
@@ -161,7 +189,7 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter("Course.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Course.txt"))
             {
                 foreach (string item in courseList)
                 {
@@ -169,7 +197,7 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter("Min.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Min.txt"))
             {
                 foreach (string item in minList)
                 {
@@ -177,7 +205,7 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter("Max.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\Max.txt"))
             {
                 foreach (string item in maxList)
                 {
@@ -185,29 +213,21 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter("MaxA.txt"))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\MaxA.txt"))
             {
                 foreach (string item in maxAList)
                 {
                     streamWriter.WriteLine(item);
                 }
-            }
+            }           
 
-            FileStream fileStream;
-            FileInfo fileInfo = new FileInfo(nameList[listBox.SelectedIndex] + "\\Names.txt");
-            if (!fileInfo.Exists)
-            {
-                fileStream = fileInfo.Create();
-                fileStream.Close();
-            }
-
-            using (StreamReader streamReader = new StreamReader(nameList[listBox.SelectedIndex] + "\\Names.txt"))
+            using (StreamReader streamReader = new StreamReader("Data\\" + nameList[index] + "\\Names.txt"))
             {
                 while (streamReader.ReadLine() != null)
                 {
                     counter++;
                 }
-            }
+            }            
 
             mainForm.Enabled = true;
             listBox.Items[index] = nameList[index] 

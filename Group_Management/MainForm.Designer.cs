@@ -31,14 +31,12 @@ namespace Group_Management
         {
             this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.sortButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.deleteButton = new System.Windows.Forms.Button();
             this.changeParamButton = new System.Windows.Forms.Button();
             this.openClouseButton = new System.Windows.Forms.Button();
             this.moveButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,17 +62,6 @@ namespace Group_Management
             this.label1.TabIndex = 3;
             this.label1.Text = "Список групп";
             // 
-            // sortButton
-            // 
-            this.sortButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sortButton.Location = new System.Drawing.Point(3, 258);
-            this.sortButton.Name = "sortButton";
-            this.sortButton.Size = new System.Drawing.Size(280, 45);
-            this.sortButton.TabIndex = 0;
-            this.sortButton.Text = "Сортировать ";
-            this.sortButton.UseVisualStyleBackColor = true;
-            this.sortButton.Click += new System.EventHandler(this.sortButton_Click);
-            // 
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -93,11 +80,10 @@ namespace Group_Management
             this.flowLayoutPanel1.Controls.Add(this.changeParamButton);
             this.flowLayoutPanel1.Controls.Add(this.openClouseButton);
             this.flowLayoutPanel1.Controls.Add(this.moveButton);
-            this.flowLayoutPanel1.Controls.Add(this.sortButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(585, 35);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(288, 314);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(288, 455);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // deleteButton
@@ -147,15 +133,6 @@ namespace Group_Management
             this.moveButton.UseVisualStyleBackColor = true;
             this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(585, 355);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(288, 31);
-            this.comboBox1.TabIndex = 6;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -172,7 +149,6 @@ namespace Group_Management
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 523);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
@@ -189,13 +165,11 @@ namespace Group_Management
         #endregion
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button changeParamButton;
         private System.Windows.Forms.Button moveButton;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button openClouseButton;
     }

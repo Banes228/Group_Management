@@ -15,55 +15,132 @@ namespace Group_Management
     {
         MainForm mainForm;
         private ListBox listBox;
-        private String groupName;
-        public AddChildForm(MainForm mainForm, ListBox listBox, string groupName)
+        public AddChildForm(MainForm mainForm, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.listBox = listBox;
-            this.groupName = groupName;
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            mainForm.Enabled = true;
-            this.Close();
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            String childName;         
-            int childAge;
+            String name;
+            int age;
             String bdd;
+
+            bdd = dateTimePicker1.Text;
+
             try
             {
-                childName = nameTextBox.Text;
-                childAge = Convert.ToInt32(ageTextBox.Text);
-                bdd = bddTextBox.Text;                                
+                name = nameTextBox.Text;               
+                age = Convert.ToInt32(ageTextBox.Text);
+                if (age < 0)
+                {
+                    MessageBox.Show("Возраст должен быть больше нуля!");
+                    return;
+                }
+                int minAge;
+                int maxAge;
+                int counter = 0;
+
+                using(StreamReader sr = new StreamReader("Data\\Names.txt")) 
+                { 
+                    string line = sr.ReadLine();
+                    while(line != mainForm.getCurrentGroup()) 
+                    { 
+                        line= sr.ReadLine();
+                        counter++;
+                    }                    
+                }
+
+                using (StreamReader sr = new StreamReader("Data\\Min.txt"))
+                {
+                    int localCounter = 0;
+                    string line = sr.ReadLine();
+                    while (localCounter != counter)
+                    {
+                        line = sr.ReadLine();
+                        localCounter++;
+                    }
+                    minAge = Convert.ToInt32(line);
+                }
+
+                using (StreamReader sr = new StreamReader("Data\\Max.txt"))
+                {
+                    int localCounter = 0;
+                    string line = sr.ReadLine();
+                    while (localCounter != counter)
+                    {
+                        line = sr.ReadLine();
+                        localCounter++;
+                    }
+                    maxAge = Convert.ToInt32(line);
+                }
+
+                if (age < minAge || age > maxAge)
+                {
+                    MessageBox.Show("Возраст не соответствует группе!");
+                    return;
+                }
+                
+                int maxA;
+
+                using (StreamReader sr = new StreamReader("Data\\MaxA.txt"))
+                {
+                    int localCounter = 0;
+                    string line = sr.ReadLine();
+                    while (localCounter != counter)
+                    {
+                        line = sr.ReadLine();
+                        localCounter++;
+                    }
+                    maxA = Convert.ToInt32(line);
+                }
+
+                counter = 0;
+                
+                using (StreamReader sr = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "Names.txt"))
+                {
+                    while (sr.ReadLine() != null)
+                    {
+                        counter++;
+                    }
+                }
+
+                if(maxA < counter) 
+                {
+                    MessageBox.Show("Превышен лимит детей в группе!");
+                    return;
+                }                               
             }
             catch
             {
                 MessageBox.Show("Данные в полях некоректны или отсутствуют!");
                 return;
-            }
+            }            
 
-            Child child = new Child(childName, childAge, bdd);
-
-            using (StreamWriter streamWriter = new StreamWriter(groupName + "\\Names.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt", true))
             {
-                streamWriter.Write(childName + "\n");
+                streamWriter.Write(name + "\n");
             }
-            using (StreamWriter streamWriter1 = new StreamWriter(groupName + "\\Age.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt", true))
             {
-                streamWriter1.Write(childAge + "\n");
+                streamWriter.Write(age + "\n");
             }
-            using (StreamWriter streamWriter2 = new StreamWriter(groupName + "\\BDD.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt", true))
             {
-                streamWriter2.Write(bdd + "\n");
-            }
+                streamWriter.Write(bdd + "\n");
+            }            
 
-            listBox.Items.Add(childName + "   |   " + childAge + "   |   " + bdd);
+            listBox.Items.Add(name
+                + "   |   " + age
+                + "   |   " + bdd);
+            mainForm.Enabled = true;
+            this.Close();
+        }
 
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
             mainForm.Enabled = true;
             this.Close();
         }

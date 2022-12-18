@@ -26,34 +26,26 @@ namespace Group_Management
         private void ChoiсeGroupForm_Load(object sender, EventArgs e)
         {
             confirmButton.Enabled = false;
-            StreamReader streamWriterOfNames = new StreamReader("Names.txt", true);
-            StreamReader streamWriterOfCourses = new StreamReader("Course.txt", true);
-            StreamReader streamWriterOfMin = new StreamReader("Min.txt", true);
-            StreamReader streamWriterOfMax = new StreamReader("Max.txt", true);
-            StreamReader streamWriterOfMaxA = new StreamReader("MaxA.txt", true);
+            StreamReader streamWriterOfNames = new StreamReader("Data\\Names.txt", true);
+            StreamReader streamWriterOfCourses = new StreamReader("Data\\Course.txt", true);
+            StreamReader streamWriterOfMin = new StreamReader("Data\\Min.txt", true);
+            StreamReader streamWriterOfMax = new StreamReader("Data\\Max.txt", true);
+            StreamReader streamWriterOfMaxA = new StreamReader("Data\\MaxA.txt", true);
 
             while (true)
             {
-                string name = streamWriterOfNames.ReadLine();
-                if (name == null)
+                string groupName = streamWriterOfNames.ReadLine();
+                if (groupName == null)
                 {
                     break;
                 }
                 string curse = streamWriterOfCourses.ReadLine();
-                int min = Convert.ToInt32(streamWriterOfMin.ReadLine());
-                int max = Convert.ToInt32(streamWriterOfMax.ReadLine());
+                string min = streamWriterOfMin.ReadLine();
+                string max = streamWriterOfMax.ReadLine();
                 int counter = 0;
-                int maxA = Convert.ToInt32(streamWriterOfMaxA.ReadLine());
+                string maxA = streamWriterOfMaxA.ReadLine();
 
-                FileStream fileStream5;
-                FileInfo fileInfo5 = new FileInfo(name + "\\Names.txt");
-                if (!fileInfo5.Exists)
-                {
-                    fileStream5 = fileInfo5.Create();
-                    fileStream5.Close();
-                }
-
-                using (StreamReader streamReader = new StreamReader(name + "\\Names.txt"))
+                using (StreamReader streamReader = new StreamReader("Data\\" + groupName + "\\Names.txt"))
                 {
                     while (streamReader.ReadLine() != null)
                     {
@@ -61,7 +53,7 @@ namespace Group_Management
                     }
                 }
                 
-                choiceListBox.Items.Add(name + "   |   " + curse + "   |   " + min + " - "
+                choiceListBox.Items.Add(groupName + "   |   " + curse + "   |   " + min + " - "
                     + max + "   |   " + counter + "/" + maxA);
             }
 
@@ -88,7 +80,7 @@ namespace Group_Management
             string age = "";
             string bdd = "";
 
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Names.txt"))
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -105,8 +97,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Age.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -123,8 +117,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
-            using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\BDD.txt"))
+
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -141,33 +137,10 @@ namespace Group_Management
                     counter++;
                 }
             }
+
             counter = 0;
 
-            using (StreamWriter streamWriter = new StreamWriter(groupName + "\\Names.txt"))
-            {
-                foreach (string item in nameList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }
-
-            using (StreamWriter streamWriter = new StreamWriter(groupName + "\\Age.txt"))
-            {
-                foreach (string item in ageList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }
-
-            using (StreamWriter streamWriter = new StreamWriter(groupName + "\\BDD.txt"))
-            {
-                foreach (string item in bddList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }
-
-            using (StreamReader streamReader = new StreamReader("Names.txt"))
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
             {
                 groupName = streamReader.ReadLine();
                 while (groupName != null)
@@ -181,18 +154,44 @@ namespace Group_Management
                 }
             }
 
-            using (StreamWriter streamWriter = new StreamWriter(groupName + "\\Names.txt", true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
+            {
+                foreach (string item in nameList)
+                {
+                    streamWriter.WriteLine(item);
+                }
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
+            {
+                foreach (string item in ageList)
+                {
+                    streamWriter.WriteLine(item);
+                }
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
+            {
+                foreach (string item in bddList)
+                {
+                    streamWriter.WriteLine(item);
+                }
+            }           
+
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + groupName + "\\Names.txt", true))
             {
                 streamWriter.Write(name + "\n");
             }
-            using (StreamWriter streamWriter1 = new StreamWriter(groupName + "\\Age.txt", true))
+            using (StreamWriter streamWriter1 = new StreamWriter("Data\\" + groupName + "\\Age.txt", true))
             {
                 streamWriter1.Write(age + "\n");
             }
-            using (StreamWriter streamWriter2 = new StreamWriter(groupName + "\\BDD.txt", true))
+            using (StreamWriter streamWriter2 = new StreamWriter("Data\\" + groupName + "\\BDD.txt", true))
             {
                 streamWriter2.Write(bdd + "\n");
             }
+
+
 
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             mainForm.Enabled = true;

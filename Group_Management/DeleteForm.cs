@@ -32,17 +32,18 @@ namespace Group_Management
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if(isGroupMode)
+            int counter = 0;
+            string groupName = "";
+
+            if (isGroupMode)
             {
                 List<string> nameList = new List<string>();
                 List<string> courseList = new List<string>();
                 List<string> minList = new List<string>();
                 List<string> maxList = new List<string>();
-                List<string> maxAList = new List<string>();
-                int counter = 0;
-                string name = "";
+                List<string> maxAList = new List<string>();                
 
-                using (StreamReader streamReader = new StreamReader("Names.txt"))
+                using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -53,14 +54,16 @@ namespace Group_Management
                         }
                         else
                         {
-                            name = line;
+                            groupName = line;
                         }
                         line = streamReader.ReadLine();
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader("Course.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\Course.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -73,8 +76,10 @@ namespace Group_Management
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader("Min.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\Min.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -87,8 +92,10 @@ namespace Group_Management
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader("Max.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\Max.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -101,8 +108,10 @@ namespace Group_Management
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader("MaxA.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\MaxA.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -116,7 +125,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Names.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\Names.txt"))
                 {
                     foreach (string item in nameList)
                     {
@@ -124,7 +133,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Course.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\Course.txt"))
                 {
                     foreach (string item in courseList)
                     {
@@ -132,7 +141,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Min.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\Min.txt"))
                 {
                     foreach (string item in minList)
                     {
@@ -140,7 +149,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Max.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\Max.txt"))
                 {
                     foreach (string item in maxList)
                     {
@@ -148,7 +157,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("MaxA.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\MaxA.txt"))
                 {
                     foreach (string item in maxAList)
                     {
@@ -156,20 +165,18 @@ namespace Group_Management
                     }
                 }
 
-                File.Delete(name + "\\Age.TXT");
-                File.Delete(name + "\\Names.TXT");
-                File.Delete(name + "\\BDD.TXT");
-                Directory.Delete(name + "\\");
+                File.Delete("Data\\" + groupName + "\\Age.TXT");
+                File.Delete("Data\\" + groupName + "\\Names.TXT");
+                File.Delete("Data\\" + groupName + "\\BDD.TXT");
+                Directory.Delete("Data\\" + groupName + "\\");
             }
             else
             {
                 List<string> nameList = new List<string>();
                 List<string> ageList = new List<string>();
-                List<string> bddList = new List<string>();              
-                int counter = 0;
-                string name;
+                List<string> bddList = new List<string>();                             
 
-                using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Names.txt"))
+                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -177,17 +184,15 @@ namespace Group_Management
                         if (!(counter == listBox.SelectedIndex))
                         {
                             nameList.Add(line);
-                        }
-                        else
-                        {
-                            name = line;
-                        }
+                        }                      
                         line = streamReader.ReadLine();
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\Age.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -200,8 +205,10 @@ namespace Group_Management
                         counter++;
                     }
                 }
+
                 counter = 0;
-                using (StreamReader streamReader = new StreamReader(mainForm.getCurrentGroup() + "\\BDD.txt"))
+
+                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
                 {
                     string line = streamReader.ReadLine();
                     while (line != null)
@@ -215,7 +222,7 @@ namespace Group_Management
                     }
                 }  
                 
-                using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\Names.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
                 {
                     foreach (string item in nameList)
                     {
@@ -223,7 +230,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\Age.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
                 {
                     foreach (string item in ageList)
                     {
@@ -231,7 +238,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter(mainForm.getCurrentGroup() + "\\BDD.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
                 {
                     foreach (string item in bddList)
                     {
