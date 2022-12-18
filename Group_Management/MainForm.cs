@@ -16,7 +16,7 @@ namespace Group_Management
         public List<Group> groups = new List<Group>();
         public List<Child> children = new List<Child>();
         private bool isGroupsMode = true;
-        private String curentGroup;
+        private String currentGroup;
         int indexOfcurentGroup;
         public MainForm()
         {
@@ -42,12 +42,12 @@ namespace Group_Management
                     int counter = 0;
                     while (true)
                     {
-                        curentGroup = streamReader.ReadLine();
+                        currentGroup = streamReader.ReadLine();
                         if (counter == indexOfcurentGroup) { break; }
                         counter++;
                     }
                 }
-                AddChildForm addChildForm = new AddChildForm(this, listBox, curentGroup);
+                AddChildForm addChildForm = new AddChildForm(this, listBox, currentGroup);
                 addChildForm.Show();
             }
             this.Enabled = false;
@@ -225,7 +225,7 @@ namespace Group_Management
                 {
                     case 0:
                         listBox.Items.Clear();
-                        using (StreamReader streamReader = new StreamReader(curentGroup + "\\Names.txt"))
+                        using (StreamReader streamReader = new StreamReader(currentGroup + "\\Names.txt"))
                         {
                             string line = streamReader.ReadLine();
                             while (line != null)
@@ -249,9 +249,9 @@ namespace Group_Management
                                 if (child.name == name)
                                 {
                                     listBox.Items.Add(child.name + "   |   " + child.age + "   |   "+ child.bdd);
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\Names.txt", isNoFirst)) { streamWriter.WriteLine(child.name); }
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\Age.txt", isNoFirst)) { streamWriter.WriteLine(child.age); }
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\BDD.txt", isNoFirst)) { streamWriter.WriteLine(child.bdd); }                                  
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\Names.txt", isNoFirst)) { streamWriter.WriteLine(child.name); }
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\Age.txt", isNoFirst)) { streamWriter.WriteLine(child.age); }
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\BDD.txt", isNoFirst)) { streamWriter.WriteLine(child.bdd); }                                  
                                     isNoFirst = true;
                                 }
                             }
@@ -261,7 +261,7 @@ namespace Group_Management
                         break;
                     case 1:
                         listBox.Items.Clear();
-                        using (StreamReader streamReader = new StreamReader(curentGroup + "\\Age.txt"))
+                        using (StreamReader streamReader = new StreamReader(currentGroup + "\\Age.txt"))
                         {
                             string line = streamReader.ReadLine();
                             while (line != null)
@@ -285,9 +285,9 @@ namespace Group_Management
                                 if (child.age.ToString() == age)
                                 {
                                     listBox.Items.Add(child.name + "   |   " + child.age + "   |   "+ child.bdd);
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\Names.txt", isNoFirst)) { streamWriter.WriteLine(child.name); }
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\Age.txt", isNoFirst)) { streamWriter.WriteLine(child.age); }
-                                    using (StreamWriter streamWriter = new StreamWriter(curentGroup + "\\BDD.txt", isNoFirst)) { streamWriter.WriteLine(child.bdd); }
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\Names.txt", isNoFirst)) { streamWriter.WriteLine(child.name); }
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\Age.txt", isNoFirst)) { streamWriter.WriteLine(child.age); }
+                                    using (StreamWriter streamWriter = new StreamWriter(currentGroup + "\\BDD.txt", isNoFirst)) { streamWriter.WriteLine(child.bdd); }
                                     isNoFirst = true;
                                 }
                             }
@@ -322,7 +322,7 @@ namespace Group_Management
                 {
                     while (true)
                     {
-                        curentGroup = streamReader.ReadLine();
+                        currentGroup = streamReader.ReadLine();
                         if (counter == listBox.SelectedIndex)
                         {
                             break;
@@ -340,9 +340,9 @@ namespace Group_Management
                 comboBox1.SelectedIndex = 0;
                 InitGroup();
 
-                StreamReader streamWriter = new StreamReader(curentGroup + "\\Names.txt", true);
-                StreamReader streamWriter1 = new StreamReader(curentGroup + "\\Age.txt", true);
-                StreamReader streamWriter2 = new StreamReader(curentGroup + "\\BDD.txt", true);
+                StreamReader streamWriter = new StreamReader(currentGroup + "\\Names.txt", true);
+                StreamReader streamWriter1 = new StreamReader(currentGroup + "\\Age.txt", true);
+                StreamReader streamWriter2 = new StreamReader(currentGroup + "\\BDD.txt", true);
 
                 while (true)
                 {
@@ -370,6 +370,10 @@ namespace Group_Management
             deleteButton.Enabled = true;
             changeParamButton.Enabled = true;
             openClouseButton.Enabled = true;
+            if (!isGroupsMode)
+            {
+                moveButton.Enabled = true;
+            }
         }
 
         private void Init()
@@ -481,7 +485,6 @@ namespace Group_Management
                     amounOfChildren = counter
                 };
                 groups.Add(group);
-
                 listBox.Items.Add(name + "   |   " + curse + "   |   " + min + " - "
                     + max + "   |   " + counter + "/" + maxA);
             }
@@ -501,21 +504,21 @@ namespace Group_Management
                 FileStream fileStream1 = null;
                 FileStream fileStream2 = null;
 
-                FileInfo fileInfo = new FileInfo(curentGroup + "\\Names.txt");
+                FileInfo fileInfo = new FileInfo(currentGroup + "\\Names.txt");
                 if (!fileInfo.Exists)
                 {
                     fileStream = fileInfo.Create();
                     fileStream.Close();
                 }
 
-                FileInfo fileInfo1 = new FileInfo(curentGroup + "\\Age.txt");
+                FileInfo fileInfo1 = new FileInfo(currentGroup + "\\Age.txt");
                 if (!fileInfo1.Exists)
                 {
                     fileStream1 = fileInfo1.Create();
                     fileStream1.Close();
                 }
 
-                FileInfo fileInfo2 = new FileInfo(curentGroup + "\\BDD.txt");
+                FileInfo fileInfo2 = new FileInfo(currentGroup + "\\BDD.txt");
                 if (!fileInfo2.Exists)
                 {
                     fileStream2 = fileInfo2.Create();
@@ -530,7 +533,30 @@ namespace Group_Management
 
         public String getCurrentGroup()
         {
-            return curentGroup;
+            return currentGroup;
+        }
+
+        private void changeParamButton_Click(object sender, EventArgs e)
+        {
+            if(isGroupsMode)
+            {
+                this.Enabled = false;
+                ChangeParamFormForGroup changeParamForm = new ChangeParamFormForGroup(this, listBox);
+                changeParamForm.Show();
+            }
+            else
+            {
+                this.Enabled = false;
+                ChangeParamFormForChild changeParamFormForChild = new ChangeParamFormForChild(this, listBox, currentGroup);
+                changeParamFormForChild.Show();
+            }
+        }
+
+        private void moveButton_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            ChoiсeGroupForm choiсeGroupForm = new ChoiсeGroupForm(this, listBox);
+            choiсeGroupForm.Show();
         }
     }
 }

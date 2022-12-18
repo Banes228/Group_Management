@@ -52,12 +52,30 @@
     <Compile Include="AddChildForm.Designer.cs">
       <DependentUpon>AddChildForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeParamFormForChild.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeParamFormForChild.Designer.cs">
+      <DependentUpon>ChangeParamFormForChild.cs</DependentUpon>
+    </Compile>
     <Compile Include="Child.cs" />
+    <Compile Include="ChoiсeGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiсeGroupForm.Designer.cs">
+      <DependentUpon>ChoiсeGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DeleteForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DeleteForm.Designer.cs">
       <DependentUpon>DeleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeParamFormForGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeParamFormForGroup.Designer.cs">
+      <DependentUpon>ChangeParamFormForGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="Group.cs" />
     <Compile Include="MainForm.cs">
@@ -77,8 +95,17 @@
     <EmbeddedResource Include="AddChildForm.resx">
       <DependentUpon>AddChildForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeParamFormForChild.resx">
+      <DependentUpon>ChangeParamFormForChild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiсeGroupForm.resx">
+      <DependentUpon>ChoiсeGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeleteForm.resx">
       <DependentUpon>DeleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeParamFormForGroup.resx">
+      <DependentUpon>ChangeParamFormForGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

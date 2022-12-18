@@ -122,6 +122,7 @@ namespace Group_Management
             this.changeParamButton.TabIndex = 3;
             this.changeParamButton.Text = "Изменить параметры";
             this.changeParamButton.UseVisualStyleBackColor = true;
+            this.changeParamButton.Click += new System.EventHandler(this.changeParamButton_Click);
             // 
             // openClouseButton
             // 
@@ -144,6 +145,7 @@ namespace Group_Management
             this.moveButton.TabIndex = 4;
             this.moveButton.Text = "Перемесить ";
             this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
             // comboBox1
             // 
