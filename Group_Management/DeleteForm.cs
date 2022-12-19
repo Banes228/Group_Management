@@ -249,7 +249,14 @@ namespace Group_Management
             
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             mainForm.Enabled = true;
+            mainForm.LimitCheck();
             this.Close();
+        }
+
+        private void FormClose(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
+            mainForm.LimitCheck();
         }
     }
 }

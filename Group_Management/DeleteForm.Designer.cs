@@ -78,6 +78,7 @@
             this.Controls.Add(this.confirmButton);
             this.Name = "DeleteForm";
             this.Text = "DeleteForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
             this.ResumeLayout(false);
 
         }
