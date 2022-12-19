@@ -26,7 +26,6 @@ namespace Group_Management
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
             this.Close();
         }
 
@@ -222,7 +221,7 @@ namespace Group_Management
                     }
                 }  
                 
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt", false))
                 {
                     foreach (string item in nameList)
                     {
@@ -230,7 +229,7 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt", false))
                 {
                     foreach (string item in ageList)
                     {
@@ -238,25 +237,25 @@ namespace Group_Management
                     }
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
+                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt", false))
                 {
                     foreach (string item in bddList)
                     {
                         streamWriter.WriteLine(item);
                     }
-                }                               
-            }
-            
+                }
+            }            
             listBox.Items.RemoveAt(listBox.SelectedIndex);
-            mainForm.Enabled = true;
-            mainForm.LimitCheck();
             this.Close();
         }
 
         private void FormClose(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
-            mainForm.LimitCheck();
+            if (!isGroupMode)
+            {
+                mainForm.LimitCheck();
+            }
         }
     }
 }
