@@ -47,7 +47,7 @@ namespace Group_Management
             // 
             this.nameTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.nameTextBox.Location = new System.Drawing.Point(28, 43);
-            this.nameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(265, 38);
             this.nameTextBox.TabIndex = 0;
@@ -56,7 +56,7 @@ namespace Group_Management
             // 
             this.courseTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.courseTextBox.Location = new System.Drawing.Point(303, 43);
-            this.courseTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.courseTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.courseTextBox.Name = "courseTextBox";
             this.courseTextBox.Size = new System.Drawing.Size(265, 38);
             this.courseTextBox.TabIndex = 1;
@@ -65,7 +65,7 @@ namespace Group_Management
             // 
             this.minAgeTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.minAgeTextBox.Location = new System.Drawing.Point(577, 43);
-            this.minAgeTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.minAgeTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.minAgeTextBox.Name = "minAgeTextBox";
             this.minAgeTextBox.Size = new System.Drawing.Size(161, 38);
             this.minAgeTextBox.TabIndex = 2;
@@ -74,7 +74,7 @@ namespace Group_Management
             // 
             this.maxAgeTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maxAgeTextBox.Location = new System.Drawing.Point(748, 43);
-            this.maxAgeTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxAgeTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.maxAgeTextBox.Name = "maxAgeTextBox";
             this.maxAgeTextBox.Size = new System.Drawing.Size(168, 38);
             this.maxAgeTextBox.TabIndex = 3;
@@ -83,7 +83,7 @@ namespace Group_Management
             // 
             this.maxAmountTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maxAmountTextBox.Location = new System.Drawing.Point(931, 43);
-            this.maxAmountTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxAmountTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.maxAmountTextBox.Name = "maxAmountTextBox";
             this.maxAmountTextBox.Size = new System.Drawing.Size(215, 38);
             this.maxAmountTextBox.TabIndex = 4;
@@ -147,7 +147,7 @@ namespace Group_Management
             // 
             this.confirmButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.confirmButton.Location = new System.Drawing.Point(28, 90);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(4);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(267, 55);
             this.confirmButton.TabIndex = 10;
@@ -159,7 +159,7 @@ namespace Group_Management
             // 
             this.cancelButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cancelButton.Location = new System.Drawing.Point(303, 90);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(267, 55);
             this.cancelButton.TabIndex = 11;
@@ -167,7 +167,7 @@ namespace Group_Management
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // AddForm
+            // AddGroupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -184,9 +184,10 @@ namespace Group_Management
             this.Controls.Add(this.minAgeTextBox);
             this.Controls.Add(this.courseTextBox);
             this.Controls.Add(this.nameTextBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "AddForm";
-            this.Text = "Form2";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "AddGroupForm";
+            this.Text = "Добавить группу";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 

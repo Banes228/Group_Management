@@ -65,25 +65,23 @@ namespace Group_Management
                 deleteButton.Enabled = false;
                 changeParamButton.Enabled = false;
                 openClouseButton.Enabled = true;
+                moveButton.Visible = true;
                 moveButton.Enabled = false;
 
                 label1.Text = "Группа: " + currentGroup;
                 label2.Text = "Имя/Возраст/Дата рождения";
-                openClouseButton.Text = "Назад";           
+                openClouseButton.Text = "Назад";
 
                 listBox.Items.Clear();
 
 
                 StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
                 StreamReader streamReader1 = new StreamReader("Data\\" + currentGroup + "\\Age.txt", true);
-                StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);
-                StreamReader streamReaderForMaxAmount = new StreamReader("Data\\Names.txt", true);
-                StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
+                StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);               
 
-                string name = "";
-                int age = 0;
-                String bdd = "";
-                int childCounter = 0;
+                string name;
+                int age;
+                String bdd;                                               
 
                 while (true)
                 {
@@ -95,22 +93,72 @@ namespace Group_Management
 
                     age = Convert.ToInt32(streamReader1.ReadLine());
                     bdd = streamReader2.ReadLine();
-                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
-                    childCounter++;
+                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);                    
 
                 }
-
-                while
-
-                if()
-                {
-
-                }
-
+                
                 streamReader.Close();
                 streamReader1.Close();
                 streamReader2.Close();
+                LimitCheck();
             }
+        }
+
+        public void LimitCheck()
+        {
+            StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
+            StreamReader streamReaderForNames = new StreamReader("Data\\Names.txt", true);
+            StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
+
+            int childCounter = 0;
+            int indexCounter = 0;
+            int localCounter = 0;
+            String line;
+            String name;
+            int maxAmountOfChildren;
+
+            while (true)
+            {
+                name = streamReader.ReadLine();
+                if (name == null)
+                {
+                    break;
+                }
+                childCounter++;
+            }
+
+            while (true)
+            {
+                line = streamReaderForNames.ReadLine();
+                if (line == currentGroup)
+                {
+                    break;
+                }
+                indexCounter++;
+            }
+
+            while (true)
+            {
+                maxAmountOfChildren = Convert.ToInt32(streamReaderForMaxAmount.ReadLine());
+                if (localCounter == indexCounter)
+                {
+                    break;
+                }
+                localCounter++;
+            }
+
+            if (maxAmountOfChildren == childCounter)
+            {
+                addButton.Enabled = false;
+            }
+            else
+            {
+                addButton.Enabled = true;
+            }
+
+            streamReader.Close();
+            streamReaderForNames.Close();
+            streamReaderForMaxAmount.Close();
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,6 +179,7 @@ namespace Group_Management
             deleteButton.Enabled = false;
             changeParamButton.Enabled = false;
             openClouseButton.Enabled = false;
+            moveButton.Visible = false;
             moveButton.Enabled = false;
 
             label1.Text = "Список групп";

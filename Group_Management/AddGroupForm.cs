@@ -142,6 +142,11 @@ namespace Group_Management
                 + "   |   " + count + "/" + groupMaxAmount);
             mainForm.Enabled = true;
             this.Close();
-        }     
+        }
+
+        private void FormClose(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
+        }
     }
 }

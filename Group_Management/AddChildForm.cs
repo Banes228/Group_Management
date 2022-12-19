@@ -107,6 +107,9 @@ namespace Group_Management
             listBox.Items.Add(name
                 + "   |   " + age
                 + "   |   " + bdd);
+
+            mainForm.LimitCheck();
+
             mainForm.Enabled = true;
             this.Close();
         }
@@ -115,6 +118,11 @@ namespace Group_Management
         {
             mainForm.Enabled = true;
             this.Close();
+        }
+
+        private void FormClose(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
         }
     }
 }
