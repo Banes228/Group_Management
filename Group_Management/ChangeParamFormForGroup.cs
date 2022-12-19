@@ -26,14 +26,11 @@ namespace Group_Management
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
             this.Close();
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-
-
             List<string> nameList = new List<string>();
             List<string> courseList = new List<string>();
             List<string> minList = new List<string>();
@@ -160,6 +157,14 @@ namespace Group_Management
 
             counter = 0;
 
+            using (StreamReader streamReader = new StreamReader("Data\\" + nameList[index] + "\\Names.txt"))
+            {
+                while (streamReader.ReadLine() != null)
+                {
+                    counter++;
+                }
+            }
+
             if (Convert.ToInt32(maxList[index]) < 0 || Convert.ToInt32(minList[index]) < 0)
             {
                 MessageBox.Show("Максимальный и минимальнй возраст должны быть больше нуля!");
@@ -170,7 +175,7 @@ namespace Group_Management
                 MessageBox.Show("Минимальнй возраст должен быть меньше максимального!");
                 return;
             }
-            if (Convert.ToInt32(maxAList[index]) < 0)
+            if (Convert.ToInt32(maxAList[index]) < 1)
             {
                 MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");
                 return;
@@ -219,15 +224,7 @@ namespace Group_Management
                 {
                     streamWriter.WriteLine(item);
                 }
-            }           
-
-            using (StreamReader streamReader = new StreamReader("Data\\" + nameList[index] + "\\Names.txt"))
-            {
-                while (streamReader.ReadLine() != null)
-                {
-                    counter++;
-                }
-            }            
+            }                       
 
             mainForm.Enabled = true;
             listBox.Items[index] = nameList[index] 
@@ -236,6 +233,11 @@ namespace Group_Management
                 + "   |   " + counter + "/" + maxAList[index];
 
             this.Close();
-        }                  
+        }
+
+        private void FormClose(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
+        }
     }
 }

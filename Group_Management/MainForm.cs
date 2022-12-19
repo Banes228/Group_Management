@@ -309,7 +309,6 @@ namespace Group_Management
             else
             {
                 this.Enabled = false;
-                updateCurrentGroup();
                 ChangeParamFormForChild changeParamFormForChild = new ChangeParamFormForChild(this, listBox);
                 changeParamFormForChild.Show();
             }

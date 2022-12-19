@@ -73,7 +73,7 @@ namespace Group_Management
 
                 groupMaxAmount = Convert.ToInt32(maxAmountTextBox.Text);
 
-                if (groupMaxAmount < 0)
+                if (groupMaxAmount < 1)
                 {
                     MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");
                     return;
