@@ -183,5 +183,10 @@ namespace Group_Management
 
             this.Close();
         }
+
+        private void FormClose(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
+        }
     }
 }

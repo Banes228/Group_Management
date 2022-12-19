@@ -116,7 +116,6 @@ namespace Group_Management
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
             this.Close();
         }
 

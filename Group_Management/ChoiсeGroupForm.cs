@@ -52,9 +52,12 @@ namespace Group_Management
                         counter++;
                     }
                 }
-                
-                choiceListBox.Items.Add(groupName + "   |   " + curse + "   |   " + min + " - "
-                    + max + "   |   " + counter + "/" + maxA);
+
+                if (!(Convert.ToInt32(maxA) == counter) && !(groupName == mainForm.getCurrentGroup()))
+                {
+                    choiceListBox.Items.Add(groupName + "   |   " + curse + "   |   " + min + " - "
+                        + max + "   |   " + counter + "/" + maxA);
+                }
             }
 
             streamWriterOfNames.Close();
@@ -153,6 +156,7 @@ namespace Group_Management
                     counter++;
                 }
             }
+           
 
             using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
             {
@@ -200,8 +204,12 @@ namespace Group_Management
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
             this.Close();
+        }
+
+        private void ChoiсeGroupForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainForm.Enabled = true;
         }
     }
 }
