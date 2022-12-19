@@ -77,21 +77,33 @@ namespace Group_Management
                 StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
                 StreamReader streamReader1 = new StreamReader("Data\\" + currentGroup + "\\Age.txt", true);
                 StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);
+                StreamReader streamReaderForMaxAmount = new StreamReader("Data\\Names.txt", true);
                 StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
+
+                string name = "";
+                int age = 0;
+                String bdd = "";
                 int childCounter = 0;
 
                 while (true)
                 {
-                    string name = streamReader.ReadLine();
+                    name = streamReader.ReadLine();
                     if (name == null)
                     {
                         break;
                     }
 
-                    int age = Convert.ToInt32(streamReader1.ReadLine());
-                    String bdd = streamReader2.ReadLine();
+                    age = Convert.ToInt32(streamReader1.ReadLine());
+                    bdd = streamReader2.ReadLine();
                     listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
                     childCounter++;
+
+                }
+
+                while
+
+                if()
+                {
 
                 }
 
