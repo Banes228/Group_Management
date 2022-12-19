@@ -67,15 +67,18 @@ namespace Group_Management
                 openClouseButton.Enabled = true;
                 moveButton.Enabled = false;
 
-                label1.Text = currentGroup;
+                label1.Text = "Группа: " + currentGroup;
                 label2.Text = "Имя/Возраст/Дата рождения";
                 openClouseButton.Text = "Назад";           
 
                 listBox.Items.Clear();
 
+
                 StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
                 StreamReader streamReader1 = new StreamReader("Data\\" + currentGroup + "\\Age.txt", true);
                 StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);
+                StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
+                int childCounter = 0;
 
                 while (true)
                 {
@@ -84,12 +87,12 @@ namespace Group_Management
                     {
                         break;
                     }
+
                     int age = Convert.ToInt32(streamReader1.ReadLine());
                     String bdd = streamReader2.ReadLine();
-
-                    Child child = new Child(name, age, bdd);
-                    children.Add(child);
                     listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
+                    childCounter++;
+
                 }
 
                 streamReader.Close();
@@ -125,6 +128,8 @@ namespace Group_Management
 
             try
             {
+                Directory.CreateDirectory("Data\\");
+
                 FileStream fileStreamOfNames = null;
                 FileStream fileStreamOfCourses = null;
                 FileStream fileStreamOfMin = null;

@@ -36,7 +36,8 @@ namespace Group_Management
             String groupCourse;
             int groupMinAge;
             int groupMaxAge;
-            int groupMaxAmount;           
+            int groupMaxAmount;       
+            
             try
             {
                 groupName = nameTextBox.Text;
@@ -53,20 +54,25 @@ namespace Group_Management
                         line = streamReader.ReadLine();
                     }
                 }
+
                 groupCourse = courseTextBox.Text;
                 groupMinAge = Convert.ToInt32(minAgeTextBox.Text);
                 groupMaxAge = Convert.ToInt32(maxAgeTextBox.Text);
+
                 if(groupMaxAge < 0 || groupMinAge < 0) 
                 {
                     MessageBox.Show("Максимальный и минимальнй возраст должны быть больше нуля!");
                     return;
                 }
+
                 if (groupMinAge > groupMaxAge)
                 {
                     MessageBox.Show("Минимальнй возраст должен быть меньше максимального!");
                     return;
                 }
+
                 groupMaxAmount = Convert.ToInt32(maxAmountTextBox.Text);
+
                 if (groupMaxAmount < 0)
                 {
                     MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");

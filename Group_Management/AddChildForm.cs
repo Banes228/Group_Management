@@ -27,21 +27,21 @@ namespace Group_Management
             String name;
             int age;
             String bdd;
-
-            bdd = dateTimePicker1.Text;
-
+            
             try
             {
+                int minAge;
+                int maxAge;
+                int counter = 0;
+
                 name = nameTextBox.Text;               
                 age = Convert.ToInt32(ageTextBox.Text);
+
                 if (age < 0)
                 {
                     MessageBox.Show("Возраст должен быть больше нуля!");
                     return;
                 }
-                int minAge;
-                int maxAge;
-                int counter = 0;
 
                 using(StreamReader sr = new StreamReader("Data\\Names.txt")) 
                 { 
@@ -81,37 +81,9 @@ namespace Group_Management
                 {
                     MessageBox.Show("Возраст не соответствует группе!");
                     return;
-                }
+                }     
                 
-                int maxA;
-
-                using (StreamReader sr = new StreamReader("Data\\MaxA.txt"))
-                {
-                    int localCounter = 0;
-                    string line = sr.ReadLine();
-                    while (localCounter != counter)
-                    {
-                        line = sr.ReadLine();
-                        localCounter++;
-                    }
-                    maxA = Convert.ToInt32(line);
-                }
-
-                counter = 0;
-                
-                using (StreamReader sr = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "Names.txt"))
-                {
-                    while (sr.ReadLine() != null)
-                    {
-                        counter++;
-                    }
-                }
-
-                if(maxA < counter) 
-                {
-                    MessageBox.Show("Превышен лимит детей в группе!");
-                    return;
-                }                               
+                bdd = dateTimePicker1.Text;
             }
             catch
             {
