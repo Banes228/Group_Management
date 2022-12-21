@@ -47,11 +47,7 @@ namespace Group_Management
 
             mainForm.AddData("Names.txt", name);
             mainForm.AddData("Age.txt", age);
-            mainForm.AddData("BDD.txt", bdd);
-          
-            listBox.Items.Add(name
-                + "   |   " + age
-                + "   |   " + bdd);
+            mainForm.AddData("BDD.txt", bdd);           
 
             mainForm.LimitCheck();
 

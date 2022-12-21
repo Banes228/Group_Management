@@ -424,9 +424,8 @@ namespace Group_Management
         public void AddChildToList(String name, int age, String bdd)
         {
             listBox.Items.Add(name
-               + "   |   " + course
-               + "   |   " + minAge + " - " + maxAge
-               + "   |   " + 0 + "/" + maxAmount);
+                + "   |   " + age
+                + "   |   " + bdd);
         }
 
         public bool GroupDataCheck(String name, int minAge, int maxAge, int maxAmount)
