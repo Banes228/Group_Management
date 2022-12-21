@@ -13,15 +13,13 @@ namespace Group_Management
 {
     public partial class DeleteForm : Form
     {
-        MainForm mainForm;
-        ListBox listBox;
-        bool isGroupMode;
-        public DeleteForm(MainForm mainForm, ListBox listBox, bool isGroupMode)
+        private readonly MainForm mainForm;
+        private readonly ListBox listBox;
+        public DeleteForm(MainForm mainForm, ListBox listBox)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.listBox = listBox;
-            this.isGroupMode = isGroupMode;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -31,219 +29,35 @@ namespace Group_Management
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            int counter = 0;
-            string groupName = "";
-
-            if (isGroupMode)
+            if (mainForm.getIsGroupsMode())
             {
-                List<string> nameList = new List<string>();
-                List<string> courseList = new List<string>();
-                List<string> minList = new List<string>();
-                List<string> maxList = new List<string>();
-                List<string> maxAList = new List<string>();                
+                List<String> nameList = mainForm.ReadAllFile("Names.txt");
+                List<String> courseList = mainForm.ReadAllFile("Course.txt");
+                List<String> minList = mainForm.ReadAllFile("Min.txt");
+                List<String> maxList = mainForm.ReadAllFile("Max.txt");
+                List<String> maxAList = mainForm.ReadAllFile("MaxA.txt");                                
 
-                using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            nameList.Add(line);
-                        }
-                        else
-                        {
-                            groupName = line;
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
+                mainForm.WriteAllData("Names.txt", nameList);
+                mainForm.WriteAllData("Course.txt", courseList);
+                mainForm.WriteAllData("Min.txt", minList);
+                mainForm.WriteAllData("Max.txt", maxList);
+                mainForm.WriteAllData("MaxA.txt", maxAList);
 
-                counter = 0;
 
-                using (StreamReader streamReader = new StreamReader("Data\\Course.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            courseList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                counter = 0;
-
-                using (StreamReader streamReader = new StreamReader("Data\\Min.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            minList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                counter = 0;
-
-                using (StreamReader streamReader = new StreamReader("Data\\Max.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            maxList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                counter = 0;
-
-                using (StreamReader streamReader = new StreamReader("Data\\MaxA.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            maxAList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\Names.txt"))
-                {
-                    foreach (string item in nameList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\Course.txt"))
-                {
-                    foreach (string item in courseList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\Min.txt"))
-                {
-                    foreach (string item in minList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\Max.txt"))
-                {
-                    foreach (string item in maxList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\MaxA.txt"))
-                {
-                    foreach (string item in maxAList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                File.Delete("Data\\" + groupName + "\\Age.TXT");
-                File.Delete("Data\\" + groupName + "\\Names.TXT");
-                File.Delete("Data\\" + groupName + "\\BDD.TXT");
-                Directory.Delete("Data\\" + groupName + "\\");
+                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\Age.TXT");
+                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\Names.TXT");
+                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\BDD.TXT");
+                Directory.Delete("Data\\" + mainForm.getCurrentGroup() + "\\");
             }
             else
             {
-                List<string> nameList = new List<string>();
-                List<string> ageList = new List<string>();
-                List<string> bddList = new List<string>();                             
-
-                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            nameList.Add(line);
-                        }                      
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                counter = 0;
-
-                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            ageList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }
-
-                counter = 0;
-
-                using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
-                {
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        if (!(counter == listBox.SelectedIndex))
-                        {
-                            bddList.Add(line);
-                        }
-                        line = streamReader.ReadLine();
-                        counter++;
-                    }
-                }  
+                List<string> nameList = mainForm.ReadAllFile("Names.txt");
+                List<string> ageList = mainForm.ReadAllFile("Age.txt");
+                List<string> bddList = mainForm.ReadAllFile("BDD.txt");                                            
                 
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt", false))
-                {
-                    foreach (string item in nameList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt", false))
-                {
-                    foreach (string item in ageList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt", false))
-                {
-                    foreach (string item in bddList)
-                    {
-                        streamWriter.WriteLine(item);
-                    }
-                }
+                mainForm.WriteAllData("Names.txt", nameList);
+                mainForm.WriteAllData("Age.txt", nameList);
+                mainForm.WriteAllData("BDD.txt", nameList);
             }            
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             this.Close();
@@ -252,7 +66,7 @@ namespace Group_Management
         private void FormClose(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
-            if (!isGroupMode)
+            if (!mainForm.getIsGroupsMode())
             {
                 mainForm.LimitCheck();
             }

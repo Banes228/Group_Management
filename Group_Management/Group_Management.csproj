@@ -58,7 +58,6 @@
     <Compile Include="ChangeParamFormForChild.Designer.cs">
       <DependentUpon>ChangeParamFormForChild.cs</DependentUpon>
     </Compile>
-    <Compile Include="Child.cs" />
     <Compile Include="ChoiсeGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,7 +76,6 @@
     <Compile Include="ChangeParamFormForGroup.Designer.cs">
       <DependentUpon>ChangeParamFormForGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Group.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

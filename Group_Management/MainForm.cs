@@ -10,20 +10,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Group_Management
 {
     public partial class MainForm : Form
     {
-        public List<Group> groups = new List<Group>();
-        public List<Child> children = new List<Child>();
         private bool isGroupsMode = true;
         private String currentGroup;
         public MainForm()
         {
             InitializeComponent();
         }
-       
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             Init();
@@ -37,7 +37,7 @@ namespace Group_Management
                 addGroupForm.Show();
             }
             else
-            {               
+            {
                 AddChildForm addChildForm = new AddChildForm(this, listBox);
                 addChildForm.Show();
             }
@@ -48,7 +48,7 @@ namespace Group_Management
         {
             this.Enabled = false;
             updateCurrentGroup();
-            DeleteForm deleteForm = new DeleteForm(this, listBox, isGroupsMode);
+            DeleteForm deleteForm = new DeleteForm(this, listBox);
             deleteForm.Show();
         }//OK
 
@@ -77,11 +77,11 @@ namespace Group_Management
 
                 StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
                 StreamReader streamReader1 = new StreamReader("Data\\" + currentGroup + "\\Age.txt", true);
-                StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);               
+                StreamReader streamReader2 = new StreamReader("Data\\" + currentGroup + "\\BDD.txt", true);
 
                 string name;
                 int age;
-                String bdd;                                               
+                String bdd;
 
                 while (true)
                 {
@@ -93,10 +93,10 @@ namespace Group_Management
 
                     age = Convert.ToInt32(streamReader1.ReadLine());
                     bdd = streamReader2.ReadLine();
-                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);                    
+                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
 
                 }
-                
+
                 streamReader.Close();
                 streamReader1.Close();
                 streamReader2.Close();
@@ -254,7 +254,7 @@ namespace Group_Management
                 string min = streamWriterOfMin.ReadLine();
                 string max = streamWriterOfMax.ReadLine();
                 int counter = 0;
-                string maxA = streamWriterOfMaxA.ReadLine();                
+                string maxA = streamWriterOfMaxA.ReadLine();
 
                 using (StreamReader streamReader = new StreamReader("Data\\" + groupName + "\\Names.txt"))
                 {
@@ -263,10 +263,10 @@ namespace Group_Management
                         counter++;
                     }
                 }
-                
-                listBox.Items.Add(groupName 
-                    + "   |   " + curse 
-                    + "   |   " + min + " - " + max 
+
+                listBox.Items.Add(groupName
+                    + "   |   " + curse
+                    + "   |   " + min + " - " + max
                     + "   |   " + counter + "/" + maxA);
             }
             streamWriterOfNames.Close();
@@ -281,15 +281,15 @@ namespace Group_Management
             return currentGroup;
         }//OK
 
-        private void updateCurrentGroup() 
+        private void updateCurrentGroup()
         {
             int counter = 0;
-            using(StreamReader streamReader = new StreamReader("Data\\Names.txt"))
-            {               
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
+            {
                 while (true)
                 {
                     currentGroup = streamReader.ReadLine();
-                    if (counter == listBox.SelectedIndex) 
+                    if (counter == listBox.SelectedIndex)
                     {
                         break;
                     }
@@ -300,7 +300,7 @@ namespace Group_Management
 
         private void changeParamButton_Click(object sender, EventArgs e)
         {
-            if(isGroupsMode)
+            if (isGroupsMode)
             {
                 this.Enabled = false;
                 ChangeParamFormForGroup changeParamForm = new ChangeParamFormForGroup(this, listBox);
@@ -320,5 +320,210 @@ namespace Group_Management
             ChoiсeGroupForm choiсeGroupForm = new ChoiсeGroupForm(this, listBox);
             choiсeGroupForm.Show();
         }//OK
+
+        public List<String> ReadAllFile(String fileName)
+        {
+            List<String> fileData = new List<String>();
+            String path;
+            int counter = 0;
+
+            if (this.isGroupsMode)
+            {
+                path = "Data\\" + fileName;
+            }
+            else
+            {
+                path = "Data\\" + getCurrentGroup() + "\\" + fileName;
+            }
+
+            using (StreamReader streamReader = new StreamReader(path))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    if (!(counter == listBox.SelectedIndex))
+                    {
+                        fileData.Add(line);
+                    }
+                    line = streamReader.ReadLine();
+                    counter++;
+                }
+            }
+
+            return fileData;
+        }
+
+        public void WriteAllData(String fileName, List<String> fileData)
+        {
+            String path;
+
+            if (this.isGroupsMode)
+            {
+                path = "Data\\" + fileName;
+            }
+            else
+            {
+                path = "Data\\" + currentGroup + "\\" + fileName;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter(path))
+            {
+                foreach (string item in fileData)
+                {
+                    streamWriter.WriteLine(item);
+                }
+            }
+        }
+
+        public void AddData (String fileName, String data) 
+        {
+            String path;
+
+            if (this.isGroupsMode)
+            {
+                path = "Data\\" + fileName;
+            }
+            else
+            {
+                path = "Data\\" + currentGroup + "\\" + fileName;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter(path, true))
+            {
+                streamWriter.Write(data + "\n");
+            }
+        }
+
+        public void AddData(String fileName, int data)
+        {
+            String path;
+
+            if (this.isGroupsMode)
+            {
+                path = "Data\\" + fileName;
+            }
+            else
+            {
+                path = "Data\\" + currentGroup + "\\" + fileName;
+            }
+
+            using (StreamWriter streamWriter = new StreamWriter(path, true))
+            {
+                streamWriter.Write(data + "\n");
+            }
+        }
+
+        public void AddGroupToList(String name, String course, int minAge, int maxAge, int maxAmount)
+        {
+            listBox.Items.Add(name
+               + "   |   " + course
+               + "   |   " + minAge + " - " + maxAge
+               + "   |   " + 0 + "/" + maxAmount);
+        }
+
+        public void AddChildToList(String name, int age, String bdd)
+        {
+            listBox.Items.Add(name
+               + "   |   " + course
+               + "   |   " + minAge + " - " + maxAge
+               + "   |   " + 0 + "/" + maxAmount);
+        }
+
+        public bool GroupDataCheck(String name, int minAge, int maxAge, int maxAmount)
+        {
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    if (line == name)
+                    {
+                        MessageBox.Show("Название группы должно быть уникальным!");
+                        return false;
+                    }
+                    line = streamReader.ReadLine();
+                }
+            }
+
+            if (maxAge < 0 || minAge < 0)
+            {
+                MessageBox.Show("Максимальный и минимальнй возраст должны быть больше нуля!");
+                return false;
+            }
+
+            if (minAge > maxAge)
+            {
+                MessageBox.Show("Минимальнй возраст должен быть меньше максимального!");
+                return false;
+            }
+
+            if (maxAmount < 1)
+            {
+                MessageBox.Show("Максимальное число детей в группе должно быть больше нуля!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool ChildDataCheck(int age)
+        {
+            int minAge;
+            int maxAge;
+            int counter = 0;
+
+            if (age < 0)
+            {
+                MessageBox.Show("Возраст должен быть больше нуля!");
+                return false;
+            }
+
+            using (StreamReader sr = new StreamReader("Data\\Names.txt"))
+            {
+                string line = sr.ReadLine();
+                while (line != currentGroup)
+                {
+                    line = sr.ReadLine();
+                    counter++;
+                }
+            }
+
+            using (StreamReader sr = new StreamReader("Data\\Min.txt"))
+            {
+                int localCounter = 0;
+                string line = sr.ReadLine();
+                while (localCounter != counter)
+                {
+                    line = sr.ReadLine();
+                    localCounter++;
+                }
+                minAge = Convert.ToInt32(line);
+            }
+
+            using (StreamReader sr = new StreamReader("Data\\Max.txt"))
+            {
+                int localCounter = 0;
+                string line = sr.ReadLine();
+                while (localCounter != counter)
+                {
+                    line = sr.ReadLine();
+                    localCounter++;
+                }
+                maxAge = Convert.ToInt32(line);
+            }
+
+            if (age < minAge || age > maxAge)
+            {
+                MessageBox.Show("Возраст не соответствует группе!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool getIsGroupsMode()
+        {
+            return isGroupsMode;
+        }
     }
 }

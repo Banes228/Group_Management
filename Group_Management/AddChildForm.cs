@@ -30,80 +30,25 @@ namespace Group_Management
             
             try
             {
-                int minAge;
-                int maxAge;
-                int counter = 0;
-
                 name = nameTextBox.Text;               
-                age = Convert.ToInt32(ageTextBox.Text);
-
-                if (age < 0)
-                {
-                    MessageBox.Show("Возраст должен быть больше нуля!");
-                    return;
-                }
-
-                using(StreamReader sr = new StreamReader("Data\\Names.txt")) 
-                { 
-                    string line = sr.ReadLine();
-                    while(line != mainForm.getCurrentGroup()) 
-                    { 
-                        line= sr.ReadLine();
-                        counter++;
-                    }                    
-                }
-
-                using (StreamReader sr = new StreamReader("Data\\Min.txt"))
-                {
-                    int localCounter = 0;
-                    string line = sr.ReadLine();
-                    while (localCounter != counter)
-                    {
-                        line = sr.ReadLine();
-                        localCounter++;
-                    }
-                    minAge = Convert.ToInt32(line);
-                }
-
-                using (StreamReader sr = new StreamReader("Data\\Max.txt"))
-                {
-                    int localCounter = 0;
-                    string line = sr.ReadLine();
-                    while (localCounter != counter)
-                    {
-                        line = sr.ReadLine();
-                        localCounter++;
-                    }
-                    maxAge = Convert.ToInt32(line);
-                }
-
-                if (age < minAge || age > maxAge)
-                {
-                    MessageBox.Show("Возраст не соответствует группе!");
-                    return;
-                }     
-                
+                age = Convert.ToInt32(ageTextBox.Text);               
                 bdd = dateTimePicker1.Text;
             }
             catch
             {
                 MessageBox.Show("Данные в полях некоректны или отсутствуют!");
                 return;
-            }            
-
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt", true))
-            {
-                streamWriter.Write(name + "\n");
             }
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt", true))
-            {
-                streamWriter.Write(age + "\n");
-            }
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt", true))
-            {
-                streamWriter.Write(bdd + "\n");
-            }            
 
+            if (!(mainForm.ChildDataCheck(age)))
+            {
+                return;
+            }
+
+            mainForm.AddData("Names.txt", name);
+            mainForm.AddData("Age.txt", age);
+            mainForm.AddData("BDD.txt", bdd);
+          
             listBox.Items.Add(name
                 + "   |   " + age
                 + "   |   " + bdd);

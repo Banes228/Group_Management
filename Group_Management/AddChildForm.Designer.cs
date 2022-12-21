@@ -41,10 +41,9 @@
             // cancelButton
             // 
             this.cancelButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cancelButton.Location = new System.Drawing.Point(291, 89);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Location = new System.Drawing.Point(218, 72);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(297, 55);
+            this.cancelButton.Size = new System.Drawing.Size(223, 45);
             this.cancelButton.TabIndex = 19;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -53,10 +52,9 @@
             // confirmButton
             // 
             this.confirmButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.confirmButton.Location = new System.Drawing.Point(16, 89);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.confirmButton.Location = new System.Drawing.Point(12, 72);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(267, 55);
+            this.confirmButton.Size = new System.Drawing.Size(200, 45);
             this.confirmButton.TabIndex = 18;
             this.confirmButton.Text = "Подтвердить";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -66,10 +64,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(400, 10);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(300, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(186, 31);
+            this.label3.Size = new System.Drawing.Size(141, 23);
             this.label3.TabIndex = 17;
             this.label3.Text = "Дата рождения";
             // 
@@ -77,10 +74,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(285, 10);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(214, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 31);
+            this.label2.Size = new System.Drawing.Size(80, 23);
             this.label2.TabIndex = 16;
             this.label2.Text = "Возраст";
             // 
@@ -88,44 +84,40 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(11, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 31);
+            this.label1.Size = new System.Drawing.Size(72, 23);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Имя";
+            this.label1.Text = "Ф.И.О.";
             // 
             // ageTextBox
             // 
             this.ageTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ageTextBox.Location = new System.Drawing.Point(291, 42);
-            this.ageTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ageTextBox.Location = new System.Drawing.Point(218, 34);
             this.ageTextBox.Name = "ageTextBox";
-            this.ageTextBox.Size = new System.Drawing.Size(100, 38);
+            this.ageTextBox.Size = new System.Drawing.Size(76, 32);
             this.ageTextBox.TabIndex = 13;
             // 
             // nameTextBox
             // 
             this.nameTextBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameTextBox.Location = new System.Drawing.Point(16, 42);
-            this.nameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nameTextBox.Location = new System.Drawing.Point(12, 34);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(265, 38);
+            this.nameTextBox.Size = new System.Drawing.Size(200, 32);
             this.nameTextBox.TabIndex = 12;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(400, 42);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Location = new System.Drawing.Point(300, 34);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(187, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(141, 20);
             this.dateTimePicker1.TabIndex = 20;
             // 
             // AddChildForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 149);
+            this.ClientSize = new System.Drawing.Size(450, 121);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
@@ -134,7 +126,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ageTextBox);
             this.Controls.Add(this.nameTextBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AddChildForm";
             this.Text = "AddChildForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
