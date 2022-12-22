@@ -15,22 +15,14 @@ namespace Group_Management
 {
     public partial class AddGroupForm : Form
     {
-        MainForm mainForm;
-        private ListBox listBox;
-        public AddGroupForm(MainForm mainForm, ListBox listBox)
+        private readonly MainForm mainForm;
+        public AddGroupForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.listBox = listBox;
         }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            mainForm.Enabled = true;
-            this.Close();
-        }
-
-        private void confirmButton_Click(object sender, EventArgs e)
+      
+        private void ConfirmButton_Click(object sender, EventArgs e)
         {
             String name;
             String course;
@@ -84,18 +76,32 @@ namespace Group_Management
                 MessageBox.Show(ex.Message);
             }
 
-            mainForm.AddData("Names.txt", name);
-            mainForm.AddData("Course.txt", course);
-            mainForm.AddData("Min.txt", minAge);
-            mainForm.AddData("Max.txt", maxAge);
-            mainForm.AddData("MaxA.txt", maxAmount);
+            AddData("Names.txt", name);
+            AddData("Course.txt", course);
+            AddData("Min.txt", minAge.ToString());
+            AddData("Max.txt", maxAge.ToString());
+            AddData("MaxA.txt", maxAmount.ToString());
 
-            mainForm.AddGroudToList(name, course, minAge, maxAge, maxAmount);
+            int count = 0;
+
+            mainForm.AddGroupToList(name, course, minAge, maxAge, count, maxAmount);
 
             mainForm.Enabled = true;
             this.Close();
         }
 
+        public void AddData(String fileName, String data)
+        {           
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + fileName, true))
+            {
+                streamWriter.Write(data + "\n");
+            }
+        }
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            mainForm.Enabled = true;
+            this.Close();
+        }
         private void FormClose(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;

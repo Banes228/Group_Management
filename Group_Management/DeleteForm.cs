@@ -22,14 +22,14 @@ namespace Group_Management
             this.listBox = listBox;
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if (mainForm.getIsGroupsMode())
+            if (mainForm.GetIsGroupsMode())
             {
                 List<String> nameList = mainForm.ReadAllFile("Names.txt");
                 List<String> courseList = mainForm.ReadAllFile("Course.txt");
@@ -56,8 +56,8 @@ namespace Group_Management
                 List<string> bddList = mainForm.ReadAllFile("BDD.txt");                                            
                 
                 mainForm.WriteAllData("Names.txt", nameList);
-                mainForm.WriteAllData("Age.txt", nameList);
-                mainForm.WriteAllData("BDD.txt", nameList);
+                mainForm.WriteAllData("Age.txt", ageList);
+                mainForm.WriteAllData("BDD.txt", bddList);
             }            
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             this.Close();
@@ -66,7 +66,7 @@ namespace Group_Management
         private void FormClose(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
-            if (!mainForm.getIsGroupsMode())
+            if (!mainForm.GetIsGroupsMode())
             {
                 mainForm.LimitCheck();
             }

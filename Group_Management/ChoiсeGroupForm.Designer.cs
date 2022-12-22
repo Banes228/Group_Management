@@ -37,50 +37,48 @@
             // 
             this.choiceListBox.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.choiceListBox.FormattingEnabled = true;
-            this.choiceListBox.ItemHeight = 29;
-            this.choiceListBox.Location = new System.Drawing.Point(16, 15);
-            this.choiceListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.choiceListBox.ItemHeight = 23;
+            this.choiceListBox.Location = new System.Drawing.Point(12, 12);
             this.choiceListBox.Name = "choiceListBox";
-            this.choiceListBox.Size = new System.Drawing.Size(685, 207);
+            this.choiceListBox.Size = new System.Drawing.Size(515, 165);
             this.choiceListBox.TabIndex = 3;
-            this.choiceListBox.SelectedIndexChanged += new System.EventHandler(this.choiceListBox_SelectedIndexChanged);
+            this.choiceListBox.SelectedIndexChanged += new System.EventHandler(this.ChoiceListBox_SelectedIndexChanged);
             // 
             // cancelButton
             // 
             this.cancelButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cancelButton.Location = new System.Drawing.Point(436, 254);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Location = new System.Drawing.Point(327, 206);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(267, 55);
+            this.cancelButton.Size = new System.Drawing.Size(200, 45);
             this.cancelButton.TabIndex = 13;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // confirmButton
             // 
             this.confirmButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.confirmButton.Location = new System.Drawing.Point(16, 254);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.confirmButton.Location = new System.Drawing.Point(12, 206);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(267, 55);
+            this.confirmButton.Size = new System.Drawing.Size(200, 45);
             this.confirmButton.TabIndex = 12;
             this.confirmButton.Text = "Подтвердить";
             this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // ChoiсeGroupForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 325);
+            this.ClientSize = new System.Drawing.Size(536, 264);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.choiceListBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximumSize = new System.Drawing.Size(552, 303);
+            this.MinimumSize = new System.Drawing.Size(552, 303);
             this.Name = "ChoiсeGroupForm";
             this.Text = "ChoiсeGroupForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChoiсeGroupForm_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
             this.Load += new System.EventHandler(this.ChoiсeGroupForm_Load);
             this.ResumeLayout(false);
 

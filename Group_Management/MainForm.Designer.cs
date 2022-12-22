@@ -50,7 +50,7 @@ namespace Group_Management
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(515, 418);
             this.listBox.TabIndex = 2;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -71,7 +71,7 @@ namespace Group_Management
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Добавить ";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -96,7 +96,7 @@ namespace Group_Management
             this.deleteButton.TabIndex = 2;
             this.deleteButton.Text = "Удалить ";
             this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // changeParamButton
             // 
@@ -108,7 +108,7 @@ namespace Group_Management
             this.changeParamButton.TabIndex = 3;
             this.changeParamButton.Text = "Изменить параметры";
             this.changeParamButton.UseVisualStyleBackColor = true;
-            this.changeParamButton.Click += new System.EventHandler(this.changeParamButton_Click);
+            this.changeParamButton.Click += new System.EventHandler(this.ChangeParamButton_Click);
             // 
             // openClouseButton
             // 
@@ -119,7 +119,7 @@ namespace Group_Management
             this.openClouseButton.TabIndex = 5;
             this.openClouseButton.Text = "Просмотреть";
             this.openClouseButton.UseVisualStyleBackColor = true;
-            this.openClouseButton.Click += new System.EventHandler(this.openClouseButton_Click);
+            this.openClouseButton.Click += new System.EventHandler(this.OpenClouseButton_Click);
             // 
             // moveButton
             // 
@@ -131,7 +131,7 @@ namespace Group_Management
             this.moveButton.TabIndex = 4;
             this.moveButton.Text = "Перемесить ";
             this.moveButton.UseVisualStyleBackColor = true;
-            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
+            this.moveButton.Click += new System.EventHandler(this.MoveButton_Click);
             // 
             // label2
             // 

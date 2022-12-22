@@ -13,16 +13,14 @@ namespace Group_Management
 {
     public partial class AddChildForm : Form
     {
-        MainForm mainForm;
-        private ListBox listBox;
-        public AddChildForm(MainForm mainForm, ListBox listBox)
+        private readonly MainForm mainForm;
+        public AddChildForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.listBox = listBox;
         }
 
-        private void confirmButton_Click(object sender, EventArgs e)
+        private void ConfirmButton_Click(object sender, EventArgs e)
         {
             String name;
             int age;
@@ -45,17 +43,26 @@ namespace Group_Management
                 return;
             }
 
-            mainForm.AddData("Names.txt", name);
-            mainForm.AddData("Age.txt", age);
-            mainForm.AddData("BDD.txt", bdd);           
+            AddData("Names.txt", name);
+            AddData("Age.txt", age.ToString());
+            AddData("BDD.txt", bdd);
 
+            mainForm.AddChildToList(name, age, bdd);
             mainForm.LimitCheck();
 
             mainForm.Enabled = true;
             this.Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void AddData(String fileName, String data)
+        {
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\" + fileName, true))
+            {
+                streamWriter.Write(data + "\n");
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

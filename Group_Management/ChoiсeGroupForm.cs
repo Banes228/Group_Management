@@ -5,16 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Group_Management
 {
     public partial class ChoiсeGroupForm : Form
     {
-        MainForm mainForm;
-        ListBox listBox;
+        private readonly MainForm mainForm;
+        private readonly ListBox listBox;
+        private String groupName;
 
         public ChoiсeGroupForm(MainForm mainForm, ListBox listBox)
         {
@@ -55,8 +58,7 @@ namespace Group_Management
 
                 if (!(Convert.ToInt32(maxA) == counter) && !(groupName == mainForm.getCurrentGroup()))
                 {
-                    choiceListBox.Items.Add(groupName + "   |   " + curse + "   |   " + min + " - "
-                        + max + "   |   " + counter + "/" + maxA);
+                    mainForm.AddGroupToList(groupName, curse, Convert.ToInt32(min), Convert.ToInt32(max), counter, Convert.ToInt32(maxA));
                 }
             }
 
@@ -67,81 +69,21 @@ namespace Group_Management
             streamWriterOfMaxA.Close();
         }
 
-        private void choiceListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ChoiceListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             confirmButton.Enabled = true;
         }
 
-        private void confirmButton_Click(object sender, EventArgs e)
-        {
-            List<string> nameList = new List<string>();
-            List<string> ageList = new List<string>();
-            List<string> bddList = new List<string>();
-            int counter = 0;
-            string groupName = "";
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {                    
             string name = "";
             string age = "";
             string bdd = "";
+            int counter = 0;
 
-            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
-            {
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    if (!(counter == listBox.SelectedIndex))
-                    {
-                        nameList.Add(line);
-                    }
-                    else
-                    {
-                        name = line;
-                    }
-                    line = streamReader.ReadLine();
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
-            {
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    if (!(counter == listBox.SelectedIndex))
-                    {
-                        ageList.Add(line);
-                    }
-                    else
-                    {
-                        age = line;
-                    }
-                    line = streamReader.ReadLine();
-                    counter++;
-                }
-            }
-
-            counter = 0;
-
-            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
-            {
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    if (!(counter == listBox.SelectedIndex))
-                    {
-                        bddList.Add(line);
-                    }
-                    else
-                    {
-                        bdd = line;
-                    }
-                    line = streamReader.ReadLine();
-                    counter++;
-                }
-            }
-
-            counter = 0;
+            List<string> nameList = DataPreraration("Names.txt", ref name);
+            List<string> ageList = DataPreraration("Agw.txt", ref age);
+            List<string> bddList = DataPreraration("BDD.txt", ref bdd);
 
             using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
             {
@@ -156,58 +98,60 @@ namespace Group_Management
                     counter++;
                 }
             }
-           
 
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Names.txt"))
-            {
-                foreach (string item in nameList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }
+            mainForm.WriteAllData("Names.txt", nameList);
+            mainForm.WriteAllData("Age.txt", ageList);
+            mainForm.WriteAllData("BDD.txt", bddList);                   
 
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\Age.txt"))
-            {
-                foreach (string item in ageList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }
-
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\BDD.txt"))
-            {
-                foreach (string item in bddList)
-                {
-                    streamWriter.WriteLine(item);
-                }
-            }           
-
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + groupName + "\\Names.txt", true))
-            {
-                streamWriter.Write(name + "\n");
-            }
-            using (StreamWriter streamWriter1 = new StreamWriter("Data\\" + groupName + "\\Age.txt", true))
-            {
-                streamWriter1.Write(age + "\n");
-            }
-            using (StreamWriter streamWriter2 = new StreamWriter("Data\\" + groupName + "\\BDD.txt", true))
-            {
-                streamWriter2.Write(bdd + "\n");
-            }
-
-
+            MoveData("Names.txt", name);
+            MoveData("Age.txt", name);
+            MoveData("BDD.txt", name);
 
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             mainForm.Enabled = true;
             this.Close();
-        }        
+        }   
+        
+        private List<String> DataPreraration(String fileName, ref String data)
+        {
+            List<String> fileData = new List<String>();
+            int counter = 0;
 
-        private void cancelButton_Click(object sender, EventArgs e)
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\" + fileName))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    if (!(counter == listBox.SelectedIndex))
+                    {
+                        fileData.Add(line);
+                    }
+                    else
+                    {
+                        data = line;
+                    }
+                    line = streamReader.ReadLine();
+                    counter++;
+                }
+            }
+
+            return fileData;
+        }
+
+        private void MoveData(String fileName, String data) 
+        {
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + groupName + "\\" + fileName, true))
+            {
+                streamWriter.Write(data + "\n");
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void ChoiсeGroupForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormClose(object sender, FormClosedEventArgs e)
         {
             mainForm.Enabled = true;
         }

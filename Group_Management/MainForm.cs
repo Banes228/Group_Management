@@ -27,32 +27,43 @@ namespace Group_Management
         private void MainForm_Load(object sender, EventArgs e)
         {
             Init();
-        }    //OK
+        }//OK
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            changeParamButton.Enabled = true;
+            openClouseButton.Enabled = true;
+            if (!isGroupsMode)
+            {
+                moveButton.Enabled = true;
+            }
+        }//OK
+
+        private void AddButton_Click(object sender, EventArgs e)
         {
             if (isGroupsMode)
             {
-                AddGroupForm addGroupForm = new AddGroupForm(this, listBox);
+                AddGroupForm addGroupForm = new AddGroupForm(this);
                 addGroupForm.Show();
             }
             else
             {
-                AddChildForm addChildForm = new AddChildForm(this, listBox);
+                AddChildForm addChildForm = new AddChildForm(this);
                 addChildForm.Show();
             }
             this.Enabled = false;
         }//OK
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            updateCurrentGroup();
+            UpdateCurrentGroup();
             DeleteForm deleteForm = new DeleteForm(this, listBox);
             deleteForm.Show();
         }//OK
 
-        private void openClouseButton_Click(object sender, EventArgs e)
+        private void OpenClouseButton_Click(object sender, EventArgs e)
         {
             isGroupsMode = !isGroupsMode;
             if (isGroupsMode)
@@ -61,7 +72,7 @@ namespace Group_Management
             }
             else
             {
-                updateCurrentGroup();
+                UpdateCurrentGroup();
                 deleteButton.Enabled = false;
                 changeParamButton.Enabled = false;
                 openClouseButton.Enabled = true;
@@ -93,7 +104,7 @@ namespace Group_Management
 
                     age = Convert.ToInt32(streamReader1.ReadLine());
                     bdd = streamReader2.ReadLine();
-                    listBox.Items.Add(name + "   |   " + age + "   |   " + bdd);
+                    AddChildToList(name, age, bdd);
 
                 }
 
@@ -102,74 +113,29 @@ namespace Group_Management
                 streamReader2.Close();
                 LimitCheck();
             }
-        }
+        }//OK
 
-        public void LimitCheck()
+        private void ChangeParamButton_Click(object sender, EventArgs e)
         {
-            StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
-            StreamReader streamReaderForNames = new StreamReader("Data\\Names.txt", true);
-            StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
-
-            int childCounter = 0;
-            int indexCounter = 0;
-            int localCounter = 0;
-            String line;
-            String name;
-            int maxAmountOfChildren;
-
-            while (true)
+            if (isGroupsMode)
             {
-                name = streamReader.ReadLine();
-                if (name == null)
-                {
-                    break;
-                }
-                childCounter++;
-            }
-
-            while (true)
-            {
-                line = streamReaderForNames.ReadLine();
-                if (line == currentGroup)
-                {
-                    break;
-                }
-                indexCounter++;
-            }
-
-            while (true)
-            {
-                maxAmountOfChildren = Convert.ToInt32(streamReaderForMaxAmount.ReadLine());
-                if (localCounter == indexCounter)
-                {
-                    break;
-                }
-                localCounter++;
-            }
-
-            if (maxAmountOfChildren == childCounter)
-            {
-                addButton.Enabled = false;
+                this.Enabled = false;
+                ChangeParamFormForGroup changeParamForm = new ChangeParamFormForGroup(this, listBox);
+                changeParamForm.Show();
             }
             else
             {
-                addButton.Enabled = true;
+                this.Enabled = false;
+                ChangeParamFormForChild changeParamFormForChild = new ChangeParamFormForChild(this, listBox);
+                changeParamFormForChild.Show();
             }
+        }//OK
 
-            streamReader.Close();
-            streamReaderForNames.Close();
-            streamReaderForMaxAmount.Close();
-        }
-
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void MoveButton_Click(object sender, EventArgs e)
         {
-            deleteButton.Enabled = true;
-            changeParamButton.Enabled = true;
-            openClouseButton.Enabled = true;
-            if (!isGroupsMode)
-            {
-                moveButton.Enabled = true;
-            }
+            this.Enabled = false;
+            ChoiсeGroupForm choiсeGroupForm = new ChoiсeGroupForm(this, listBox);
+            choiсeGroupForm.Show();
         }//OK
 
         private void Init()
@@ -264,24 +230,16 @@ namespace Group_Management
                     }
                 }
 
-                listBox.Items.Add(groupName
-                    + "   |   " + curse
-                    + "   |   " + min + " - " + max
-                    + "   |   " + counter + "/" + maxA);
+                AddGroupToList(groupName, curse, Convert.ToInt32(min), Convert.ToInt32(max), counter, Convert.ToInt32(maxA));
             }
             streamWriterOfNames.Close();
             streamWriterOfCourses.Close();
             streamWriterOfMin.Close();
             streamWriterOfMax.Close();
             streamWriterOfMaxA.Close();
-        }//OK       
+        }//OK              
 
-        public String getCurrentGroup()
-        {
-            return currentGroup;
-        }//OK
-
-        private void updateCurrentGroup()
+        private void UpdateCurrentGroup()
         {
             int counter = 0;
             using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
@@ -298,27 +256,61 @@ namespace Group_Management
             }
         }//OK
 
-        private void changeParamButton_Click(object sender, EventArgs e)
+        public void LimitCheck()
         {
-            if (isGroupsMode)
+            StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
+            StreamReader streamReaderForNames = new StreamReader("Data\\Names.txt", true);
+            StreamReader streamReaderForMaxAmount = new StreamReader("Data\\MaxA.txt", true);
+
+            int childCounter = 0;
+            int indexCounter = 0;
+            int localCounter = 0;
+            String line;
+            String name;
+            int maxAmountOfChildren;
+
+            while (true)
             {
-                this.Enabled = false;
-                ChangeParamFormForGroup changeParamForm = new ChangeParamFormForGroup(this, listBox);
-                changeParamForm.Show();
+                name = streamReader.ReadLine();
+                if (name == null)
+                {
+                    break;
+                }
+                childCounter++;
+            }
+
+            while (true)
+            {
+                line = streamReaderForNames.ReadLine();
+                if (line == currentGroup)
+                {
+                    break;
+                }
+                indexCounter++;
+            }
+
+            while (true)
+            {
+                maxAmountOfChildren = Convert.ToInt32(streamReaderForMaxAmount.ReadLine());
+                if (localCounter == indexCounter)
+                {
+                    break;
+                }
+                localCounter++;
+            }
+
+            if (maxAmountOfChildren == childCounter)
+            {
+                addButton.Enabled = false;
             }
             else
             {
-                this.Enabled = false;
-                ChangeParamFormForChild changeParamFormForChild = new ChangeParamFormForChild(this, listBox);
-                changeParamFormForChild.Show();
+                addButton.Enabled = true;
             }
-        }//OK
 
-        private void moveButton_Click(object sender, EventArgs e)
-        {
-            this.Enabled = false;
-            ChoiсeGroupForm choiсeGroupForm = new ChoiсeGroupForm(this, listBox);
-            choiсeGroupForm.Show();
+            streamReader.Close();
+            streamReaderForNames.Close();
+            streamReaderForMaxAmount.Close();
         }//OK
 
         public List<String> ReadAllFile(String fileName)
@@ -351,7 +343,7 @@ namespace Group_Management
             }
 
             return fileData;
-        }
+        }//OK
 
         public void WriteAllData(String fileName, List<String> fileData)
         {
@@ -373,7 +365,7 @@ namespace Group_Management
                     streamWriter.WriteLine(item);
                 }
             }
-        }
+        }//OK
 
         public void AddData (String fileName, String data) 
         {
@@ -392,41 +384,22 @@ namespace Group_Management
             {
                 streamWriter.Write(data + "\n");
             }
-        }
+        }//OK
 
-        public void AddData(String fileName, int data)
-        {
-            String path;
-
-            if (this.isGroupsMode)
-            {
-                path = "Data\\" + fileName;
-            }
-            else
-            {
-                path = "Data\\" + currentGroup + "\\" + fileName;
-            }
-
-            using (StreamWriter streamWriter = new StreamWriter(path, true))
-            {
-                streamWriter.Write(data + "\n");
-            }
-        }
-
-        public void AddGroupToList(String name, String course, int minAge, int maxAge, int maxAmount)
+        public void AddGroupToList(String name, String course, int minAge, int maxAge, int counter, int maxAmount)
         {
             listBox.Items.Add(name
                + "   |   " + course
                + "   |   " + minAge + " - " + maxAge
-               + "   |   " + 0 + "/" + maxAmount);
-        }
+               + "   |   " + counter + "/" + maxAmount);
+        }//OK
 
         public void AddChildToList(String name, int age, String bdd)
         {
             listBox.Items.Add(name
                 + "   |   " + age
                 + "   |   " + bdd);
-        }
+        }//OK
 
         public bool GroupDataCheck(String name, int minAge, int maxAge, int maxAmount)
         {
@@ -463,7 +436,7 @@ namespace Group_Management
             }
 
             return true;
-        }
+        }//OK
 
         public bool ChildDataCheck(int age)
         {
@@ -520,9 +493,14 @@ namespace Group_Management
             return true;
         }
 
-        public bool getIsGroupsMode()
+        public String getCurrentGroup()
+        {
+            return currentGroup;
+        }//OK
+
+        public bool GetIsGroupsMode()
         {
             return isGroupsMode;
-        }
+        }//OK
     }
 }

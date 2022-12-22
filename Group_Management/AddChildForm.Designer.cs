@@ -47,7 +47,7 @@
             this.cancelButton.TabIndex = 19;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // confirmButton
             // 
@@ -58,7 +58,7 @@
             this.confirmButton.TabIndex = 18;
             this.confirmButton.Text = "Подтвердить";
             this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
+            this.confirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // label3
             // 
@@ -126,8 +126,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ageTextBox);
             this.Controls.Add(this.nameTextBox);
+            this.MaximumSize = new System.Drawing.Size(466, 160);
+            this.MinimumSize = new System.Drawing.Size(466, 160);
             this.Name = "AddChildForm";
-            this.Text = "AddChildForm";
+            this.Text = "Добавить ребёнка в группу";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
             this.ResumeLayout(false);
             this.PerformLayout();
