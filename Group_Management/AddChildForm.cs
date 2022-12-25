@@ -49,7 +49,7 @@ namespace Group_Management
 
         private void AddData(String fileName, String data)
         {
-            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.getCurrentGroup() + "\\" + fileName, true))
+            using (StreamWriter streamWriter = new StreamWriter("Data\\" + mainForm.GetCurrentGroup() + "\\" + fileName, true))
             {
                 streamWriter.Write(data + "\n");
             }

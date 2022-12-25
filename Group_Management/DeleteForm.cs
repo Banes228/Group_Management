@@ -31,11 +31,11 @@ namespace Group_Management
         {
             if (mainForm.GetIsGroupsMode())
             {
-                List<String> nameList = mainForm.ReadAllFile("Names.txt");
-                List<String> courseList = mainForm.ReadAllFile("Course.txt");
-                List<String> minList = mainForm.ReadAllFile("Min.txt");
-                List<String> maxList = mainForm.ReadAllFile("Max.txt");
-                List<String> maxAList = mainForm.ReadAllFile("MaxA.txt");                                
+                List<String> nameList = ReadAllFile("Names.txt");
+                List<String> courseList = ReadAllFile("Course.txt");
+                List<String> minList = ReadAllFile("Min.txt");
+                List<String> maxList = ReadAllFile("Max.txt");
+                List<String> maxAList = ReadAllFile("MaxA.txt");                                
 
                 mainForm.WriteAllData("Names.txt", nameList);
                 mainForm.WriteAllData("Course.txt", courseList);
@@ -44,16 +44,16 @@ namespace Group_Management
                 mainForm.WriteAllData("MaxA.txt", maxAList);
 
 
-                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\Age.TXT");
-                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\Names.TXT");
-                File.Delete("Data\\" + mainForm.getCurrentGroup() + "\\BDD.TXT");
-                Directory.Delete("Data\\" + mainForm.getCurrentGroup() + "\\");
+                File.Delete("Data\\" + mainForm.GetCurrentGroup() + "\\Age.TXT");
+                File.Delete("Data\\" + mainForm.GetCurrentGroup() + "\\Names.TXT");
+                File.Delete("Data\\" + mainForm.GetCurrentGroup() + "\\BDD.TXT");
+                Directory.Delete("Data\\" + mainForm.GetCurrentGroup() + "\\");
             }
             else
             {
-                List<string> nameList = mainForm.ReadAllFile("Names.txt");
-                List<string> ageList = mainForm.ReadAllFile("Age.txt");
-                List<string> bddList = mainForm.ReadAllFile("BDD.txt");                                            
+                List<string> nameList = ReadAllFile("Names.txt");
+                List<string> ageList = ReadAllFile("Age.txt");
+                List<string> bddList = ReadAllFile("BDD.txt");                                            
                 
                 mainForm.WriteAllData("Names.txt", nameList);
                 mainForm.WriteAllData("Age.txt", ageList);
@@ -61,6 +61,41 @@ namespace Group_Management
             }            
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             this.Close();
+        }
+
+        //Метод для считывания данных параметра каждой группы
+        //или каждого ребёнка в группе поочереди
+        //String fileName - имя файла откуда нужно читать данные
+        public List<String> ReadAllFile(String fileName)
+        {
+            List<String> fileData = new List<String>();
+            String path;
+            int counter = 0;
+
+            if (mainForm.GetIsGroupsMode())
+            {
+                path = "Data\\" + fileName;
+            }
+            else
+            {
+                path = "Data\\" + mainForm.GetCurrentGroup() + "\\" + fileName;
+            }
+
+            using (StreamReader streamReader = new StreamReader(path))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    if (!(counter == listBox.SelectedIndex))
+                    {
+                        fileData.Add(line);
+                    }
+                    line = streamReader.ReadLine();
+                    counter++;
+                }
+            }
+
+            return fileData;
         }
 
         private void FormClose(object sender, FormClosedEventArgs e)

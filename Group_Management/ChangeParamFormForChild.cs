@@ -18,9 +18,22 @@ namespace Group_Management
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            List<string> nameList = ChangeOneInData("Names.txt");
-            List<string> ageList = ChangeOneInData("Age.txt");
-            List<string> bddList = mainForm.ReadAllFile("BDD.txt");
+            List<string> nameList = ChangeOneInData("Names.txt", nameTextBox);
+            List<string> ageList = ChangeOneInData("Age.txt", ageTextBox);
+            List<string> bddList = new List<string>();
+            int counter = 0;
+
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.GetCurrentGroup() + "\\BDD.txt"))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    bddList.Add(line);
+                    line = streamReader.ReadLine();
+                    counter++;
+                }
+            }
+
             int index = listBox.SelectedIndex;
            
             if (!(mainForm.ChildDataCheck(Convert.ToInt32(ageList[index]))))
@@ -29,8 +42,8 @@ namespace Group_Management
             }
 
             mainForm.WriteAllData("Names.txt", nameList);
-            mainForm.WriteAllData("Age.txt", nameList);
-            mainForm.WriteAllData("BDD.txt", nameList);                      
+            mainForm.WriteAllData("Age.txt", ageList);
+            mainForm.WriteAllData("BDD.txt", bddList);                      
 
             mainForm.Enabled = true;
             listBox.Items[index] = nameList[index]
@@ -40,12 +53,12 @@ namespace Group_Management
             this.Close();
         }
 
-        private List<String> ChangeOneInData(String fileName)
+        private List<String> ChangeOneInData(String fileName, TextBox textBox)
         {
             List<String> fileData = new List<String>();
             int counter = 0;
 
-            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.getCurrentGroup() + "\\" + fileName))
+            using (StreamReader streamReader = new StreamReader("Data\\" + mainForm.GetCurrentGroup() + "\\" + fileName))
             {
                 string line = streamReader.ReadLine();
                 while (line != null)
@@ -56,9 +69,9 @@ namespace Group_Management
                     }
                     else
                     {
-                        if (nameTextBox.Text != "")
+                        if (textBox.Text != "")
                         {
-                            fileData.Add(nameTextBox.Text);
+                            fileData.Add(textBox.Text);
                         }
                         else
                         {

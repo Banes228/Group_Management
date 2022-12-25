@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Group_Management
 {
@@ -18,14 +19,27 @@ namespace Group_Management
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            List<string> nameList = mainForm.ReadAllFile("Names.txt");
-            List<string> courseList = ChangeOneInData("Course.txt");
-            List<string> minList = ChangeOneInData("Min.txt");
-            List<string> maxList = ChangeOneInData("Max.txt");
-            List<string> maxAList = ChangeOneInData("MaxA.txt");
+            List<String> nameList = new List<String>();
+            List<String> courseList = ChangeOneInData("Course.txt", courseTextBox);
+            List<String> minList = ChangeOneInData("Min.txt", minAgeTextBox);
+            List<String> maxList = ChangeOneInData("Max.txt", maxAgeTextBox);
+            List<String> maxAList = ChangeOneInData("MaxA.txt", maxAmountTextBox);
+            int counter = 0;
+
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    nameList.Add(line);
+                    line = streamReader.ReadLine();
+                    counter++;
+                }
+            }
+
             int index = listBox.SelectedIndex;                        
 
-            int counter = 0;
+            counter = 0;
 
             using (StreamReader streamReader = new StreamReader("Data\\" + nameList[index] + "\\Names.txt"))
             {
@@ -35,7 +49,7 @@ namespace Group_Management
                 }
             }
 
-            if (!(mainForm.GroupDataCheck(nameList[index], Convert.ToInt32(minList[index]),
+            if (!(mainForm.GroupDataCheck(Convert.ToInt32(minList[index]),
                 Convert.ToInt32(maxList[index]), Convert.ToInt32(maxAList[index]))))
             {
                 return;
@@ -48,12 +62,17 @@ namespace Group_Management
             mainForm.WriteAllData("MaxA.txt", maxAList);
                                   
             mainForm.Enabled = true;
-            mainForm.AddGroupToList(nameList[index], courseList[index], Convert.ToInt32(minList[index]), 
-                Convert.ToInt32(maxList[index]), counter, Convert.ToInt32(maxAList[index]));
+
+            listBox.Items[index] = nameList[index]
+               + "   |   " + courseList[index]
+               + "   |   " + minList[index] + " - " + maxList[index]
+               + "   |   " + counter + "/" + maxAList[index];
+            
+
             this.Close();
         }
 
-        private List<String> ChangeOneInData(String fileName)
+        private List<String> ChangeOneInData(String fileName, TextBox textBox)
         {
             List<String> fileData = new List<String>();
             int counter = 0;
@@ -69,9 +88,9 @@ namespace Group_Management
                     }
                     else
                     {
-                        if (courseTextBox.Text != "")
+                        if (textBox.Text != "")
                         {
-                            fileData.Add(courseTextBox.Text);
+                            fileData.Add(textBox.Text);
                         }
                         else
                         {
@@ -84,8 +103,8 @@ namespace Group_Management
             }
 
             return fileData;
-        } 
-
+        }
+        
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
