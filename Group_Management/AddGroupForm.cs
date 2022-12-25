@@ -34,9 +34,23 @@ namespace Group_Management
             {
                 MessageBox.Show("Данные в полях некоректны или отсутствуют!");
                 return;
-            }     
+            }
 
-            if(!(mainForm.GroupDataCheck(name, minAge, maxAge, maxAmount)))
+            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
+            {
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    if (line == name)
+                    {
+                        MessageBox.Show("Название группы должно быть уникальным!");
+                        return;
+                    }
+                    line = streamReader.ReadLine();
+                }
+            }
+
+            if (!(mainForm.GroupDataCheck( minAge, maxAge, maxAmount)))
             {
                 return;
             }

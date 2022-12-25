@@ -7,8 +7,8 @@ namespace Group_Management
 {
     public partial class MainForm : Form
     {
-        private bool isGroupsMode = true;
-        private String currentGroup;
+        private bool isGroupsMode = true; //значение true - ведётся работа над группами; значение false - ведётся работа над детьми в группе;
+        private String currentGroup; //Название группы, в/над которой ведётся работа
         public MainForm()
         {
             InitializeComponent();
@@ -19,6 +19,8 @@ namespace Group_Management
             Init();
         }
 
+        // Срабатывает когда в списке выбирается какой-то елемент,
+        // после чего некоторые кнопки становяться активными
         private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             deleteButton.Enabled = true;
@@ -30,6 +32,9 @@ namespace Group_Management
             }
         }
 
+        //Срабатывает когда пользователь нажимает кнопку "Добавить",
+        //после чего взависимоти от значения поля isGroupMode,
+        //вызывает либо форму для добавления группы либо форму для добавления ребёнка
         private void AddButton_Click(object sender, EventArgs e)
         {
             if (isGroupsMode)
@@ -43,16 +48,21 @@ namespace Group_Management
                 addChildForm.Show();
             }
             this.Enabled = false;
-        }//OK
+        }
 
+        //Срабатывает когда пользователь нажимает кнопку "Удалить",
+        //после чего вызывает форму для удаления группы или ребёнка
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
             UpdateCurrentGroup();
             DeleteForm deleteForm = new DeleteForm(this, listBox);
             deleteForm.Show();
-        }//OK
+        }
 
+        //Срабатывает когда пользователь нажимает кнопку "Просмотреть"/"Назад",
+        //после чего взависимоти от значения поля isGroupMode,
+        //выводит либо список всех групп либо список всех детей в выбранной группе
         private void OpenClouseButton_Click(object sender, EventArgs e)
         {
             isGroupsMode = !isGroupsMode;
@@ -103,8 +113,12 @@ namespace Group_Management
                 streamReader2.Close();
                 LimitCheck();
             }
-        }//OK
+        }
 
+        //Срабатывает когда пользователь нажимает кнопку "Изменить параметры",
+        //после чего взависимоти от значения поля isGroupMode,
+        //вызывает либо форму для изменения параметров группы
+        //либо вызывает форму для изменения параметров ребёнка
         private void ChangeParamButton_Click(object sender, EventArgs e)
         {
             if (isGroupsMode)
@@ -119,15 +133,20 @@ namespace Group_Management
                 ChangeParamFormForChild changeParamFormForChild = new ChangeParamFormForChild(this, listBox);
                 changeParamFormForChild.Show();
             }
-        }//OK
+        }
+
+        //Срабатывает когда пользователь нажимает кнопку "Переместить,
+        //после чего вызывает форму для выбора группы,
+        //в которую будет перемещён ребёнок
 
         private void MoveButton_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
             ChoiсeGroupForm choiсeGroupForm = new ChoiсeGroupForm(this, listBox);
             choiсeGroupForm.Show();
-        }//OK
+        }
 
+        //Метод для вывода всех групп в список
         private void Init()
         {
             listBox.Items.Clear();
@@ -227,8 +246,9 @@ namespace Group_Management
             streamWriterOfMin.Close();
             streamWriterOfMax.Close();
             streamWriterOfMaxA.Close();
-        }//OK              
+        }
 
+        //Метод для определения группы над/в которой ведётся работа
         private void UpdateCurrentGroup()
         {
             int counter = 0;
@@ -244,8 +264,9 @@ namespace Group_Management
                     counter++;
                 }
             }
-        }//OK
+        }
 
+        //Метод для проверки заполнена ли группа детьми до прдела (возвращает false) или нет (true)
         public void LimitCheck()
         {
             StreamReader streamReader = new StreamReader("Data\\" + currentGroup + "\\Names.txt", true);
@@ -301,40 +322,12 @@ namespace Group_Management
             streamReader.Close();
             streamReaderForNames.Close();
             streamReaderForMaxAmount.Close();
-        }//OK
+        }       
 
-        public List<String> ReadAllFile(String fileName)
-        {
-            List<String> fileData = new List<String>();
-            String path;
-            int counter = 0;
-
-            if (this.isGroupsMode)
-            {
-                path = "Data\\" + fileName;
-            }
-            else
-            {
-                path = "Data\\" + getCurrentGroup() + "\\" + fileName;
-            }
-
-            using (StreamReader streamReader = new StreamReader(path))
-            {
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    if (!(counter == listBox.SelectedIndex))
-                    {
-                        fileData.Add(line);
-                    }
-                    line = streamReader.ReadLine();
-                    counter++;
-                }
-            }
-
-            return fileData;
-        }//OK
-
+        //Метод для записи параметра каждой группы 
+        //или каждого ребёнка в группе поочереди
+        //String fileName - имя файла куда нужно записывать данные
+        //List<String> fileData - данные которые должны быть записаны
         public void WriteAllData(String fileName, List<String> fileData)
         {
             String path;
@@ -355,8 +348,12 @@ namespace Group_Management
                     streamWriter.WriteLine(item);
                 }
             }
-        }//OK
+        }
 
+        //Метод для записи параметра группы
+        //или ребёнка из группы
+        //String fileName - имя файла куда нужно записывать данные
+        //String data - параметр который должны быть записан
         public void AddData (String fileName, String data) 
         {
             String path;
@@ -374,38 +371,40 @@ namespace Group_Management
             {
                 streamWriter.Write(data + "\n");
             }
-        }//OK
+        }
 
+        //Метод для вывода данных группы в ListBox
+        //String name - название группы
+        //String course - название напрвления
+        //int minAge - минимальный возраст для ребёнка в группе
+        //int maxAge - максимальный возраст для ребёнка в группе
+        //int counter - количество детей в группе
+        //int maxAmount - максимальное количество детей в группе
         public void AddGroupToList(String name, String course, int minAge, int maxAge, int counter, int maxAmount)
         {
             listBox.Items.Add(name
                + "   |   " + course
                + "   |   " + minAge + " - " + maxAge
                + "   |   " + counter + "/" + maxAmount);
-        }//OK
+        }
 
+        //Метод для вывода данных ребёнка в ListBox
+        //String name - имя ребёнка
+        //int age - возраст ребёнка       
+        //String bdd - дата рождения
         public void AddChildToList(String name, int age, String bdd)
         {
             listBox.Items.Add(name
                 + "   |   " + age
                 + "   |   " + bdd);
-        }//OK
+        }
 
-        public bool GroupDataCheck(String name, int minAge, int maxAge, int maxAmount)
-        {
-            using (StreamReader streamReader = new StreamReader("Data\\Names.txt"))
-            {
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    if (line == name)
-                    {
-                        MessageBox.Show("Название группы должно быть уникальным!");
-                        return false;
-                    }
-                    line = streamReader.ReadLine();
-                }
-            }
+        //Метод для проверки корректности данных группы
+        //int minAge - минимальный возраст для ребёнка в группе
+        //int maxAge - максимальный возраст для ребёнка в группе
+        //int maxAmount - максимальное количество детей в группе
+        public bool GroupDataCheck(int minAge, int maxAge, int maxAmount)
+        {            
 
             if (maxAge < 0 || minAge < 0)
             {
@@ -426,8 +425,10 @@ namespace Group_Management
             }
 
             return true;
-        }//OK
+        }
 
+        //Метод для проверки корректности данных ребёнка
+        //int age - возраст ребёнка
         public bool ChildDataCheck(int age)
         {
             int minAge;
@@ -483,14 +484,14 @@ namespace Group_Management
             return true;
         }
 
-        public String getCurrentGroup()
+        public String GetCurrentGroup()
         {
             return currentGroup;
-        }//NoTest
+        }
 
         public bool GetIsGroupsMode()
         {
             return isGroupsMode;
-        }//NoTest
+        }
     }
 }
