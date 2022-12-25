@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Group_Management
 {
@@ -27,7 +17,7 @@ namespace Group_Management
         private void MainForm_Load(object sender, EventArgs e)
         {
             Init();
-        }//OK
+        }
 
         private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -38,7 +28,7 @@ namespace Group_Management
             {
                 moveButton.Enabled = true;
             }
-        }//OK
+        }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -496,11 +486,11 @@ namespace Group_Management
         public String getCurrentGroup()
         {
             return currentGroup;
-        }//OK
+        }//NoTest
 
         public bool GetIsGroupsMode()
         {
             return isGroupsMode;
-        }//OK
+        }//NoTest
     }
 }
