@@ -109,6 +109,7 @@ namespace Group_Management
 
             listBox.Items.RemoveAt(listBox.SelectedIndex);
             mainForm.Enabled = true;
+            mainForm.LimitCheck();
             this.Close();
         }   
         

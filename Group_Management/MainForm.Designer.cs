@@ -153,6 +153,8 @@ namespace Group_Management
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MaximumSize = new System.Drawing.Size(903, 562);
+            this.MinimumSize = new System.Drawing.Size(903, 562);
             this.Name = "MainForm";
             this.Text = "Ведение групп";
             this.Load += new System.EventHandler(this.MainForm_Load);

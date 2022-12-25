@@ -151,6 +151,7 @@ namespace Group_Management
         {
             listBox.Items.Clear();
 
+            addButton.Enabled = true;
             deleteButton.Enabled = false;
             changeParamButton.Enabled = false;
             openClouseButton.Enabled = false;
