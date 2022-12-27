@@ -33,7 +33,13 @@
 
 Если у вас нет данной среды разработки или появилисть иные трудности октройте документ **руководство пользователя**, ссылка на которое нахлдиться ниже в разделе **"Докумнтация"**
 
-## Использоваине
-
 ## Документация 
-[Руководство пользователя](https://github.com/N1KF0X/Group_Management/raw/master/Documentations/User's_guide.docx)
+**Пользовательская документация:*
+* [Руководство пользователя](https://github.com/N1KF0X/Group_Management/raw/master/Documentations/User's_guide.docx)
+
+**Документация разработки:**
+* [Техническое задание](https://github.com/N1KF0X/Group_Management/raw/master/Documentations/ТЗ.docx)
+* [Спецификация](https://github.com/N1KF0X/Group_Management/raw/master/Documentations/Спецификация.docx)
+* [Функциональные требования](https://github.com/N1KF0X/Group_Management/raw/master/Documentations/Функциональные_требования.docx)
+
+**Документация тестирование:**
